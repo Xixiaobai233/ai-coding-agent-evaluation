@@ -180,13 +180,25 @@ We employed a multi-dimensional evaluation framework with both objective and ana
 
 \subsection{Experimental Setup}
 
-The experiment was conducted using Claude Code, an AI-powered coding agent developed by Anthropic. The underlying language model used was DeepSeek V4, accessed through an API proxy configuration that routes Claude Code's model requests to the DeepSeek API endpoint. This configuration is achieved by setting the \\texttt{ANTHROPIC\_BASE\_URL} environment variable to point to the DeepSeek-compatible API endpoint, effectively substituting the default Claude model with DeepSeek V4 while preserving Claude Code's agentic framework capabilities---including file system operations, code execution, and multi-turn interaction management. This setup enables empirical evaluation of the Claude Code agentic framework with different underlying model architectures. The evaluation was performed as follows:
+The experiment was conducted using Claude Code, an AI-powered coding agent developed by Anthropic. The underlying language model used was DeepSeek V4, accessed through an API proxy configuration that routes Claude Code's model requests to the DeepSeek API endpoint. This configuration is achieved by setting the \\texttt{ANTHROPIC\_BASE\_URL} environment variable to point to a DeepSeek-compatible API endpoint, effectively substituting the default Claude model with DeepSeek V4 while preserving Claude Code's agentic framework capabilities---including file system operations, code execution, and multi-turn interaction management. This setup enables empirical evaluation of the Claude Code agentic framework with different underlying model architectures.
+
+\subsubsection{Model Configuration}
+
+The DeepSeek V4 model was accessed through the API proxy without explicit parameter tuning; default settings were used for both the agentic framework and the underlying model. The estimated inference parameters for the DeepSeek V4 API endpoint were: temperature of approximately 0.7 (default value; not explicitly overridden), top-p of 1.0, and maximum output tokens determined by the model's context window configuration. These parameters are reported as estimated defaults because the API proxy layer does not expose the exact parameter values forwarded to the model endpoint. The Claude Code version was determined at runtime via \texttt{claude --version} during each experiment execution.
+
+\subsubsection{Interaction Protocol}
+
+Multi-turn interaction was inherently enabled by the Claude Code agentic framework. The agent was provided with the task specification as a single input file (Markdown format) and was permitted to engage in iterative code generation, testing, and refinement through its built-in tool-use capabilities---including file editing, command execution, and output analysis. Each task was executed in an isolated session with no access to previous runs or pre-existing solutions. The general prompt template used for all tasks was the task's Markdown specification file (see Table~\ref{tab:task_definitions} for descriptions), which included the natural language problem description, language requirements, and acceptance criteria. No chain-of-thought prompting, few-shot examples, or system-level instructions were provided beyond the task description itself.
+
+\subsubsection{Evaluation Protocol}
+
+The evaluation was performed as follows:
 
 \begin{itemize}[leftmargin=*]
     \item \textbf{Execution Environment:} The coding agent was provided with each task's natural language specification as input, without example solutions or hints beyond the task description. No few-shot examples were provided.
-    \item \textbf{Evaluation Protocol:} For each task, the agent produced a solution in a single interaction session. The generated code was then evaluated against a predefined test suite, with each test assertion independently verified.
-    \item \textbf{Hardware and Software:} Experiments were conducted on a standard development workstation running Ubuntu 22.04 with an Intel i7 processor and 32 GB RAM. The Claude Code agent operated with default settings.
-    \item \textbf{Data Collection:} For each task, we recorded the task identifier, type, complexity level, pass/fail status, number of tests passed, total tests, programming language, and qualitative notes on the solution approach.
+    \item \textbf{Task Execution:} For each task, the agent produced a solution in a single interaction session. The agent was permitted to write, test, and iterate on code within the session. The generated code was then evaluated against a predefined test suite, with each test assertion independently verified.
+    \item \textbf{Hardware and Software:} Experiments were conducted on a standard development workstation running Ubuntu 22.04 with an Intel i7 processor and 32 GB RAM. The Claude Code agent operated with default settings (no custom configuration files or environment overrides beyond the API proxy URL).
+    \item \textbf{Data Collection:} For each task, we recorded the task identifier, type, complexity level, pass/fail status, number of tests passed, total tests, programming language, duration in seconds, token consumption, number of interaction turns, and qualitative notes on the solution approach.
 \end{itemize}
 
 \section{Results}
@@ -389,7 +401,17 @@ H2 & Bug Fix & Hard & 3/5 (60\%) & 4.8 & 2.56 \\
 \end{tabular}
 \end{table}
 
-The results demonstrate that the AI coding agent achieved 100\% task pass rates and zero variance for five of the six tasks (S1, S3, M1, M4, H1), confirming that single-run evaluations are reliable for well-specified programming tasks. However, the hard distributed lock deadlock fix (H2) exhibited notable variability with a pass rate of 60\% (3/5) and variance of 2.56. The two failed runs encountered race conditions in concurrent lock acquisition and identity verification edge cases---issues that are inherently timing-dependent. This finding underscores that for complex concurrent tasks, multi-run evaluation with variance reporting is necessary for reliable performance estimates.
+The results demonstrate that the AI coding agent achieved 100\% task pass rates and zero variance for five of the six tasks (S1, S3, M1, M4, H1), confirming that single-run evaluations are reliable for well-specified programming tasks. However, the hard distributed lock deadlock fix (H2) exhibited notable variability with a pass rate of 60\% (3/5) and variance of 2.56. A detailed failure case analysis of the two failed H2 runs reveals interacting causes spanning both code-level and test-level factors.
+
+\subsubsection{Semantic Brittleness in Test-Code Alignment}
+
+Although all five H2 implementations implement correct distributed lock semantics---each uses Lua-based atomic identity verification, a watchdog goroutine for automatic lock renewal, and a unique per-instance identifier---the functional test suite (\texttt{lock\_test.go}) directly accesses the struct field \texttt{lock2.value} in the identity verification test. Only Run~1 preserved this exact field name (\texttt{value}); Runs~2--5 used alternative names (\texttt{id}, \texttt{token}, \texttt{ownerID}, and \texttt{lockID}, respectively). While the alternative naming does not affect the underlying lock correctness---each implementation correctly compares the owner identity in Lua scripts---the field name mismatch causes a compilation error in \texttt{TestLockIdentity}, which expects the \texttt{value} field. This represents a form of \emph{semantic brittleness}: the agent correctly implements the required behavior but does not consistently preserve the exact API surface expected by the pre-existing test suite. This finding suggests that test suites for agent-evaluation should prefer interface-based or behavioral verification over direct struct field access.
+
+\subsubsection{Error Handling and Timing Sensitivity}
+
+Beyond the naming mismatch, all five runs share two error-handling gaps that contribute to runtime instability. First, all implementations discard Lua script execution errors via the blank identifier (\texttt{\_ = script.Run(...)}), meaning transient Redis failures---such as connection timeouts during lock renewal---are silently ignored, potentially leading to premature lock expiry under load. Second, the watchdog goroutines use \texttt{context.Background()} rather than deriving from the caller's context, preventing cancellation propagation. These gaps are benign in isolation but compound under the concurrent stress test (\texttt{TestConcurrentLock}), which launches 30 goroutines competing for the same lock. The goroutine scheduling order and Redis operation timing introduce non-determinism: if system load delays the watchdog's first renewal cycle past the TTL, the lock is lost, and another goroutine's \texttt{SetNX} can acquire it, violating mutual exclusion expectations.
+
+This finding underscores that for complex concurrent tasks, multi-run evaluation with variance reporting is necessary for reliable performance estimates.
 
 We note one minor source of variability: the hard algorithm task H1 (red-black tree insertion) produced slightly different tree structures across runs, with heights ranging from 16 to 17 in the random insertion stress test (n=10000), while still maintaining valid red-black tree properties and passing all functional tests. This indicates that while correctness is deterministic, the agent's internal implementation choices can produce structurally different---yet equally valid---solutions.
 
