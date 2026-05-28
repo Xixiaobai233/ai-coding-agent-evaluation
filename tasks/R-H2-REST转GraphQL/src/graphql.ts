@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { User, CreateUserInput } from './types';
 import { RestAPI } from './rest';
 

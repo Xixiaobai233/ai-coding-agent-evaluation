@@ -17,9 +17,9 @@ import {
   Order,
   OrderItem,
   OrderStatus,
-  EventStore,
   createEvent,
 } from './models';
+import { EventStore } from './eventStore';
 
 export class OrderCommandHandler {
   private orders: Map<string, Order> = new Map();

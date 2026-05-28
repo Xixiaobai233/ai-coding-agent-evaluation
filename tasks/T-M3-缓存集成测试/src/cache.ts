@@ -109,16 +109,20 @@ export class AsyncCache<T = unknown> extends EventEmitter {
    * 设置缓存值。
    */
   set(key: string, value: T, customTtlMs?: number): void {
-    if (this.store.has(key)) {
+    const isUpdate = this.store.has(key);
+
+    if (isUpdate) {
       this.removeFromAccessOrder(key);
+    } else {
+      // 仅新增条目时检查容量，更新已有键不触发驱逐
+      while (this.store.size >= this.maxSize) {
+        this.evictLRU();
+      }
     }
 
-    // 检查容量，触发 LRU 驱逐
-    while (this.store.size >= this.maxSize) {
-      this.evictLRU();
-    }
-
-    const expiresAt = Date.now() + (customTtlMs ?? this.ttlMs);
+    // TTL <= 0 表示永不过期
+    const ttl = customTtlMs ?? this.ttlMs;
+    const expiresAt = ttl > 0 ? Date.now() + ttl : Infinity;
     const entry: CacheEntry<T> = {
       value,
       expiresAt,

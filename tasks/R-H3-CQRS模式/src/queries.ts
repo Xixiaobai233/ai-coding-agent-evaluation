@@ -11,8 +11,8 @@ import {
   CustomerOrderSummary,
   ProductSalesStats,
   DomainEvent,
-  EventStore,
 } from './models';
+import { EventStore } from './eventStore';
 
 export class OrderQueryHandler {
   /** 读模型：订单列表 */

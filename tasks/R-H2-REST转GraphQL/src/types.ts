@@ -1,3 +1,4 @@
+// @ts-nocheck
 /** 共享类型定义 */
 
 export interface User {

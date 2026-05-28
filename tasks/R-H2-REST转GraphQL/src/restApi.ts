@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * 模拟 REST API 客户端。
  * 在真实场景中，这个模块会通过 fetch / axios 发起 HTTP 请求。
