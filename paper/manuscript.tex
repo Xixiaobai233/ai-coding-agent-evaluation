@@ -206,28 +206,28 @@ The Claude Code agent achieved a 100\% task pass rate, successfully completing a
 \begin{figure}[h]
 \centering
 \includegraphics[width=\linewidth]{figures/fig2_time_by_tasktype.png}
-\caption{Distribution of time taken by task type and condition.}
+\caption{Distribution of time taken by task type.}
 \label{fig:time_by_type}
 \end{figure}
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=\linewidth]{figures/fig3_complexity_vs_time.png}
-\caption{Complexity versus time taken across conditions with regression lines.}
+\caption{Time taken by task complexity (with regression line).}
 \label{fig:complexity_vs_time}
 \end{figure}
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=\linewidth]{figures/fig4_tokens_by_tasktype.png}
-\caption{Token consumption by task type and condition.}
+\caption{Token consumption by task type.}
 \label{fig:tokens_by_type}
 \end{figure}
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=\linewidth]{figures/fig5_turns_by_tasktype.png}
-\caption{Interaction turns by task type and condition.}
+\caption{Interaction turns by task type.}
 \label{fig:turns_by_type}
 \end{figure}
 
@@ -570,11 +570,5 @@ L. Wang \textit{et al.}, ``A survey on large language model based autonomous age
 
 \end{thebibliography}
 
-egin{abstract}
-AI-powered coding agents are increasingly used for software development tasks, yet their behavior across different task types remains insufficiently characterized. This paper presents a small-scale empirical case study of an agentic coding setup using Claude Code as the orchestration environment with a DeepSeek-based backend. We evaluate the setup on 18 software development tasks covering algorithm implementation, bug fixing, refactoring, and test writing across JavaScript, TypeScript, Go, and JSX. In the primary single-run evaluation, the agent completed all 18 tasks and passed all 162 predefined test assertions. To assess run-to-run stability, we further repeated six representative tasks five times each. Five tasks achieved stable success across all repeated runs, whereas a distributed-lock bug-fixing task succeeded in only 3 out of 5 runs, revealing substantial variability for complex concurrent logic. These findings suggest that agentic coding systems can perform strongly on well-specified, common programming tasks, but single-run evaluation may overestimate reliability for concurrency-heavy or distributed-system tasks. We discuss threats to validity including benchmark size, training-data contamination, absence of human baselines, and limitations of test-based evaluation.
-\end{abstract}
 
-\begin{IEEEkeywords}
-AI coding agents, large language models, empirical software engineering, automated programming, Claude Code, DeepSeek V4
-\end{IEEEkeywords}
-
+\end{document}
