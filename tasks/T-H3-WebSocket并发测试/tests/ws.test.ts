@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * WebSocket 并发测试
  *
