@@ -25,7 +25,7 @@ A-M4,new,medium,pending,0,5,multi,New task - template created
 A-M5,new,medium,pending,0,5,multi,New task - template created
 A-H2,new,medium,pass,0,5,multi,New task - template created
 A-H3,new,medium,pending,0,5,multi,New task - template created
-B-S3,new,medium,pass,0,5,multi,New task - template created
+B-S3,new,medium,pass,10,10,multi,Node test 10/10 passed
 B-S4,new,medium,pass,0,5,multi,New task - template created
 B-M3,new,medium,pending,0,5,multi,New task - template created
 B-M4,new,medium,pending,0,5,multi,New task - template created
@@ -41,7 +41,7 @@ R-M5,new,medium,pending,0,5,multi,New task - template created
 R-M6,new,medium,pending,0,5,multi,New task - template created
 R-H2,new,medium,pending,0,5,multi,New task - template created
 R-H3,new,medium,pending,0,5,multi,New task - template created
-T-S3,new,medium,pending,0,5,multi,New task - template created
+T-S3,new,medium,pass,5,5,multi,pytest parametrize 5/5
 T-S4,new,medium,pending,0,5,multi,New task - template created
 T-M3,new,medium,pending,0,5,multi,New task - template created
 T-M4,new,medium,pending,0,5,multi,New task - template created
