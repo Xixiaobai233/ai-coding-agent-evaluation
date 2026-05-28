@@ -57,6 +57,31 @@ func dijkstra(graph [][][]int, start int) []int {
 	for i := range dist {
 		dist[i] = math.MaxInt32
 	}
-	// TODO: 初始化起点距离，初始化最小堆，进行 Dijkstra 主循环
+	dist[start] = 0
+
+	pq := &PriorityQueue{}
+	heap.Init(pq)
+	heap.Push(pq, &Item{node: start, distance: 0})
+
+	for pq.Len() > 0 {
+		item := heap.Pop(pq).(*Item)
+		u := item.node
+		if item.distance > dist[u] {
+			continue
+		}
+		for _, edge := range graph[u] {
+			v, w := edge[0], edge[1]
+			if nd := dist[u] + w; nd < dist[v] {
+				dist[v] = nd
+				heap.Push(pq, &Item{node: v, distance: nd})
+			}
+		}
+	}
+
+	for i := range dist {
+		if dist[i] == math.MaxInt32 {
+			dist[i] = -1
+		}
+	}
 	return dist
 }

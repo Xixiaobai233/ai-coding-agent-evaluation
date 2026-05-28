@@ -47,8 +47,14 @@ class Skiplist {
    * @returns {boolean}
    */
   search(target) {
-    // TODO: 从最高层开始向前查找，逐层向下
-    return false;
+    let curr = this.head;
+    for (let i = this.level - 1; i >= 0; i--) {
+      while (curr.next[i] !== null && curr.next[i].value < target) {
+        curr = curr.next[i];
+      }
+    }
+    curr = curr.next[0];
+    return curr !== null && curr.value === target;
   }
 
   /**
@@ -56,7 +62,26 @@ class Skiplist {
    * @param {number} num
    */
   add(num) {
-    // TODO: 找到每层的前驱节点，随机生成层数，插入
+    const update = new Array(MAX_LEVEL);
+    let curr = this.head;
+    for (let i = this.level - 1; i >= 0; i--) {
+      while (curr.next[i] !== null && curr.next[i].value < num) {
+        curr = curr.next[i];
+      }
+      update[i] = curr;
+    }
+    const lvl = this._randomLevel();
+    if (lvl > this.level) {
+      for (let i = this.level; i < lvl; i++) {
+        update[i] = this.head;
+      }
+      this.level = lvl;
+    }
+    const newNode = new SkipListNode(num, lvl);
+    for (let i = 0; i < lvl; i++) {
+      newNode.next[i] = update[i].next[i];
+      update[i].next[i] = newNode;
+    }
   }
 
   /**
@@ -65,8 +90,26 @@ class Skiplist {
    * @returns {boolean}
    */
   erase(num) {
-    // TODO: 找到每层的前驱节点，如果存在则删除
-    return false;
+    const update = new Array(MAX_LEVEL);
+    let curr = this.head;
+    for (let i = this.level - 1; i >= 0; i--) {
+      while (curr.next[i] !== null && curr.next[i].value < num) {
+        curr = curr.next[i];
+      }
+      update[i] = curr;
+    }
+    curr = curr.next[0];
+    if (curr === null || curr.value !== num) {
+      return false;
+    }
+    for (let i = 0; i < this.level; i++) {
+      if (update[i].next[i] !== curr) break;
+      update[i].next[i] = curr.next[i];
+    }
+    while (this.level > 1 && this.head.next[this.level - 1] === null) {
+      this.level--;
+    }
+    return true;
   }
 }
 

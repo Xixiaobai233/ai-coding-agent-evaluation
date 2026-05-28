@@ -1,6 +1,32 @@
 /**
- * 购物车金额计算器 —— 当前版本存在浮点数精度问题
+ * 购物车金额计算器 —— 修复浮点数精度问题
  */
+
+const EPSILON = 1e-10;
+
+/**
+ * 高精度加法，消除浮点误差
+ */
+function preciseAdd(a, b) {
+  const factor = Math.pow(10, Math.max(decimalPlaces(a), decimalPlaces(b)));
+  return Math.round(a * factor + b * factor) / factor;
+}
+
+/**
+ * 高精度乘法，消除浮点误差
+ */
+function preciseMultiply(a, b) {
+  const factor = Math.pow(10, Math.max(decimalPlaces(a), decimalPlaces(b)));
+  const result = (Math.round(a * factor) * Math.round(b * factor)) / (factor * factor);
+  return result;
+}
+
+function decimalPlaces(n) {
+  const str = String(n);
+  const idx = str.indexOf('.');
+  return idx === -1 ? 0 : str.length - idx - 1;
+}
+
 class CartCalculator {
   constructor() {
     this.items = [];
@@ -12,41 +38,44 @@ class CartCalculator {
 
   /**
    * 计算某项商品的小计
-   * BUG: price * quantity 可能产生浮点数精度误差
+   * 修复：使用高精度乘法
    */
   getSubtotal(price, quantity) {
-    return price * quantity;
+    // 将金额转为以分为单位避免浮点误差
+    const priceCents = Math.round(price * 100);
+    const subtotalCents = priceCents * quantity;
+    return subtotalCents / 100;
   }
 
   /**
    * 计算购物车总金额
-   * BUG: 多次累加产生累积误差
+   * 修复：使用分（整数）累加，避免累积误差
    */
   getTotal() {
-    let total = 0;
+    let totalCents = 0;
     for (const item of this.items) {
-      total += this.getSubtotal(item.price, item.quantity);
+      const priceCents = Math.round(item.price * 100);
+      totalCents += priceCents * item.quantity;
     }
-    return total;
+    return totalCents / 100;
   }
 
   /**
    * 检查金额是否相等
-   * BUG: 直接使用 === 比较浮点数
+   * 修复：使用误差容忍（epsilon）比较
    */
   isEqual(a, b) {
-    return a === b;
+    return Math.abs(a - b) < EPSILON;
   }
 
   /**
    * 应用折扣：满 100 减 20
-   * BUG: 由于浮点数精度问题，总金额可能错误地触发或不触发折扣
+   * 修复：使用 isEqual 配合 epsilon 比较
    */
   applyDiscount() {
     const total = this.getTotal();
-    // BUG: isEqual(100) 可能因为精度问题永远不成立
-    if (this.isEqual(total, 100) || total > 100) {
-      return total - 20;
+    if (total >= 100 || this.isEqual(total, 100)) {
+      return Math.round((total - 20) * 100) / 100;
     }
     return total;
   }

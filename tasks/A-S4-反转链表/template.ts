@@ -19,8 +19,15 @@ export class ListNode {
  * @returns 反转后的链表头节点
  */
 export function reverseList(head: ListNode | null): ListNode | null {
-  // TODO: 实现迭代法反转
-  return null;
+  let prev: ListNode | null = null;
+  let curr = head;
+  while (curr !== null) {
+    const next = curr.next;
+    curr.next = prev;
+    prev = curr;
+    curr = next;
+  }
+  return prev;
 }
 
 /**
@@ -32,6 +39,11 @@ export function reverseList(head: ListNode | null): ListNode | null {
  * @returns 反转后的链表头节点
  */
 export function reverseListRecursive(head: ListNode | null): ListNode | null {
-  // TODO: 实现递归法反转
-  return null;
+  if (head === null || head.next === null) {
+    return head;
+  }
+  const newHead = reverseListRecursive(head.next);
+  head.next.next = head;
+  head.next = null;
+  return newHead;
 }

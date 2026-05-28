@@ -23,7 +23,14 @@ class Trie {
    * @param {string} word
    */
   insert(word) {
-    // TODO: 从根节点开始，逐字符向下创建/复用节点
+    let node = this.root;
+    for (const ch of word) {
+      if (!node.children.has(ch)) {
+        node.children.set(ch, new TrieNode());
+      }
+      node = node.children.get(ch);
+    }
+    node.isEnd = true;
   }
 
   /**
@@ -32,8 +39,8 @@ class Trie {
    * @returns {boolean}
    */
   search(word) {
-    // TODO: 从根节点开始逐字符匹配，最后检查 isEnd
-    return false;
+    const node = this._traverse(word);
+    return node !== null && node.isEnd;
   }
 
   /**
@@ -42,8 +49,7 @@ class Trie {
    * @returns {boolean}
    */
   startsWith(prefix) {
-    // TODO: 从根节点开始逐字符匹配，只要能走完前缀就返回 true
-    return false;
+    return this._traverse(prefix) !== null;
   }
 
   /**
@@ -52,8 +58,26 @@ class Trie {
    * @returns {boolean} 是否成功删除
    */
   delete(word) {
-    // TODO: 可选 - 实现删除功能
-    return false;
+    const path = [];
+    let node = this.root;
+    for (const ch of word) {
+      if (!node.children.has(ch)) return false;
+      path.push({ node, ch });
+      node = node.children.get(ch);
+    }
+    if (!node.isEnd) return false;
+    node.isEnd = false;
+    if (node.children.size > 0) return true;
+    for (let i = path.length - 1; i >= 0; i--) {
+      const { node: parent, ch } = path[i];
+      const child = parent.children.get(ch);
+      if (child.children.size === 0 && !child.isEnd) {
+        parent.children.delete(ch);
+      } else {
+        break;
+      }
+    }
+    return true;
   }
 
   /**
@@ -61,8 +85,29 @@ class Trie {
    * @returns {string[]}
    */
   listAll() {
-    // TODO: 可选 - 使用 DFS 收集所有单词
-    return [];
+    const result = [];
+    this._dfs(this.root, '', result);
+    return result;
+  }
+
+  /** 从根节点沿路径遍历 */
+  _traverse(word) {
+    let node = this.root;
+    for (const ch of word) {
+      if (!node.children.has(ch)) return null;
+      node = node.children.get(ch);
+    }
+    return node;
+  }
+
+  /** DFS 收集所有单词 */
+  _dfs(node, prefix, result) {
+    if (node.isEnd) {
+      result.push(prefix);
+    }
+    for (const [ch, child] of node.children) {
+      this._dfs(child, prefix + ch, result);
+    }
   }
 }
 

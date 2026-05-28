@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 
 const API_BASE = 'https://api.example.com';
 
@@ -7,38 +7,63 @@ function UserList() {
   const [filter, setFilter] = useState({ role: 'all', status: 'active' });
   const [loading, setLoading] = useState(false);
 
-  // BUG 1：每次渲染都创建新对象，导致依赖变化
-  const queryParams = {
+  // 修复 BUG 1：使用 useMemo 稳定 queryParams 引用
+  const queryParams = useMemo(() => ({
     role: filter.role,
     status: filter.status,
     page: 1,
     pageSize: 20
-  };
+  }), [filter.role, filter.status]);
 
-  // BUG 2：依赖 queryParams（引用类型），每次渲染都不同，useCallback 无效
-  const fetchUsers = useCallback(async () => {
-    setLoading(true);
-    const query = new URLSearchParams(queryParams);
-    const response = await fetch(`${API_BASE}/users?${query}`);
-    const data = await response.json();
-    setUsers(data);
-    setLoading(false);
+  // 使用 ref 跟踪 AbortController
+  const abortRef = useRef(null);
+
+  // 修复 BUG 2 & 3：fetchUsers 不放在 useCallback 中，直接在 effect 中调用
+  // 修复 BUG 5：使用 AbortController 取消未完成的请求
+  useEffect(() => {
+    // 取消上一次请求
+    if (abortRef.current) {
+      abortRef.current.abort();
+    }
+
+    const controller = new AbortController();
+    abortRef.current = controller;
+
+    const fetchUsers = async () => {
+      setLoading(true);
+      try {
+        const query = new URLSearchParams(queryParams);
+        const response = await fetch(`${API_BASE}/users?${query}`, {
+          signal: controller.signal
+        });
+        const data = await response.json();
+        if (!controller.signal.aborted) {
+          setUsers(data);
+        }
+      } catch (err) {
+        if (err.name !== 'AbortError') {
+          console.error('Fetch error:', err);
+        }
+      } finally {
+        if (!controller.signal.aborted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchUsers();
+
+    return () => {
+      controller.abort();
+    };
   }, [queryParams]);
 
-  // BUG 3：依赖 fetchUsers，而 fetchUsers 每次渲染都变 → 无限循环
-  useEffect(() => {
-    fetchUsers();
-  }, [fetchUsers]);
-
-  // BUG 4：settings 来自 useState（引用稳定），但此处依赖整个对象冗余
+  // 修复 BUG 4：只依赖 settings.theme，而非整个 settings 对象
   const [settings, setSettings] = useState({ theme: 'light', compact: false });
 
   useEffect(() => {
     document.body.className = settings.theme;
-  }, [settings]); // 只依赖 theme 即可，compact 变化不应触发
-
-  // BUG 5：无请求取消机制，组件卸载后可能 setState 报错
-  // 且 filter 变化时，旧请求仍在运行
+  }, [settings.theme]);
 
   return (
     <div className={settings.theme}>

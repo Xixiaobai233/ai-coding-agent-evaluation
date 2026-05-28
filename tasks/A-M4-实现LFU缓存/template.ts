@@ -34,17 +34,24 @@ class DoublyLinkedList {
 
   /** 在链表头部插入节点 (MRU 端) */
   addToHead(node: ListNode): void {
-    // TODO
+    node.prev = this.head;
+    node.next = this.head.next;
+    this.head.next!.prev = node;
+    this.head.next = node;
   }
 
   /** 移除指定节点 */
   removeNode(node: ListNode): void {
-    // TODO
+    node.prev!.next = node.next;
+    node.next!.prev = node.prev;
   }
 
   /** 移除链表尾部节点 (LRU 端) */
   removeTail(): ListNode | null {
-    // TODO
+    if (this.isEmpty()) return null;
+    const node = this.tail.prev!;
+    this.removeNode(node);
+    return node;
   }
 
   /** 链表是否为空 */
@@ -67,17 +74,59 @@ class LFUCache {
   }
 
   get(key: number): number {
-    // TODO
-    return -1;
+    if (!this.keyToNode.has(key)) return -1;
+    const node = this.keyToNode.get(key)!;
+    this.increaseFreq(node);
+    return node.value;
   }
 
   put(key: number, value: number): void {
-    // TODO
+    if (this.capacity <= 0) return;
+
+    if (this.keyToNode.has(key)) {
+      const node = this.keyToNode.get(key)!;
+      node.value = value;
+      this.increaseFreq(node);
+      return;
+    }
+
+    if (this.keyToNode.size >= this.capacity) {
+      const list = this.freqToList.get(this.minFreq)!;
+      const toRemove = list.removeTail()!;
+      this.keyToNode.delete(toRemove.key);
+      if (list.isEmpty()) {
+        this.freqToList.delete(this.minFreq);
+      }
+    }
+
+    const node = new ListNode(key, value);
+    this.keyToNode.set(key, node);
+    this.minFreq = 1;
+    if (!this.freqToList.has(1)) {
+      this.freqToList.set(1, new DoublyLinkedList());
+    }
+    this.freqToList.get(1)!.addToHead(node);
   }
 
   /** 增加节点频率 */
   private increaseFreq(node: ListNode): void {
-    // TODO
+    const oldFreq = node.freq;
+    const oldList = this.freqToList.get(oldFreq)!;
+    oldList.removeNode(node);
+
+    if (oldList.isEmpty()) {
+      this.freqToList.delete(oldFreq);
+      if (this.minFreq === oldFreq) {
+        this.minFreq++;
+      }
+    }
+
+    node.freq++;
+    const newFreq = node.freq;
+    if (!this.freqToList.has(newFreq)) {
+      this.freqToList.set(newFreq, new DoublyLinkedList());
+    }
+    this.freqToList.get(newFreq)!.addToHead(node);
   }
 }
 
