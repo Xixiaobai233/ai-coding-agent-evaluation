@@ -438,27 +438,27 @@ The complete experimental data, including all 18 core task specifications and 32
 \section{Discussion}
 \label{sec:discussion}
 
-\subsection{Interpretation of Findings}
+\subsection{What the Three-Layer Model Reveals}
 
-The 100\% success rate achieved within our small-scale benchmark provides preliminary evidence of performance on the selected tasks. This result is particularly meaningful given the deliberate diversity of our benchmark, which spans fundamental algorithmic reasoning, diagnostic debugging, software design and architecture, and testing methodology---skills that collectively represent the core competencies expected of professional software developers.
+The central finding of this study is not that an AI coding agent achieved high pass rates---a result that is increasingly common for established benchmarks---but that single-run pass/fail outcomes can mask substantial reliability differences that the three-layer model reveals.
 
-Several factors may contribute to this high performance. First, one possible explanation is the strong code-generation capability of the underlying model, although our study does not isolate model-level effects. Second, we hypothesize that Claude Code's agentic framework, which supports multi-turn interaction and structured tool use, enables more systematic problem-solving compared to single-pass code generation approaches. Third, the alignment between our benchmark tasks and patterns in the model's training data likely contributes to the observed performance, as many of these tasks represent well-known programming problems. We discuss the implications of this potential training data overlap in the following subsection.
+At L1 (semantic correctness), the agent performed uniformly across all 50 tasks. Across 414 test assertions and 30 repeated runs, no semantic failures were observed. This suggests that for well-specified programming tasks, current AI coding agents can consistently produce functionally correct code.
 
-The consistent performance across task types likely means current AI coding agent capabilities may be more evenly distributed across task categories in our benchmark than observed in earlier code generation benchmarks. This contrasts with earlier findings~\cite{chen2021evaluating} that showed significant performance variation across problem categories in code generation benchmarks. The improvement may reflect advances in both base model capabilities and the agentic framework's ability to adapt its problem-solving strategy to different task requirements.
+At L2 (interface compatibility), we observed a failure mode that is qualitatively different from traditional coding errors. The H2 task's correct implementations failed due to struct field naming mismatches---a form of semantic brittleness where the agent produces valid but incompatible code. This failure mode has no direct analog in human programming: a human developer reads the existing codebase and preserves naming conventions, whereas the agent generates each solution from scratch without awareness of interface expectations. This suggests that evaluations relying solely on compilation or test execution may underestimate integration effort for AI-generated code.
 
-An important caveat in interpreting these results is the potential for training data contamination. Many of the tasks in our benchmark---particularly the classic algorithm problems (e.g., Two-Sum, Valid Parentheses, LRU Cache, Red-Black Tree) and common bug patterns (e.g., binary search off-by-one, SQL injection)---are well-documented in programming education resources and open-source repositories that are likely included in the training corpus of deepseek-v4-flash. While this does not diminish the practical utility of the agent's correct solutions, it means that performance on these tasks may not generalize to entirely novel programming problems that lack similar training precedents. Future benchmarks should incorporate tasks specifically designed to assess generalization to unseen problem types, such as those requiring recently published algorithms or domain-specific knowledge unlikely to appear in training data. This concern parallels similar discussions in the broader LLM evaluation literature regarding benchmark contamination~\cite{hendrycks2021measuring}.
+At L3 (temporal stability), the H2 task showed a Variance Index of 2.56, indicating that even functionally correct code can behave non-deterministically under concurrent load. The five sequential tasks showed VI = 0.00, suggesting that temporal instability is concentrated in tasks involving concurrency, timing, or distributed coordination.
 
-\subsection{Implications for Software Engineering Practice}
+\subsection{Implications for Evaluation Methodology}
 
-Our findings have several implications for software engineering practice:
+Our findings suggest three methodological recommendations for AI coding agent evaluation:
 
-			extbf{Enhanced Developer Productivity:} The demonstrated capability across algorithm implementation, debugging, refactoring, and testing likely means AI coding agents can serve as effective productivity multipliers for routine and moderately complex development tasks. Developers can potentially delegate implementation work to agents while focusing on higher-level architectural and design decisions.
+	extbf{Multi-run evaluation should complement single-run pass rates.} Single-run evaluations report a deterministic outcome for an inherently stochastic process. While tasks with VI = 0.00 may not require multi-run assessment, tasks involving concurrency or distributed systems should be evaluated over multiple runs with variance reporting.
 
-			extbf{Code Quality and Consistency:} The agent's correct application of design patterns (Strategy, Saga), security best practices (parameterized queries, bcrypt), and concurrency patterns (RWMutex, atomic operations, watchdog goroutines) indicates that AI coding agents can help maintain code quality standards, particularly in areas where human developers may have varying expertise.
+	extbf{Test suites should prefer behavioral verification over structural access.} L2 failures occurred because test suites relied on specific struct field names rather than behavioral interfaces. Designing test suites around API contracts rather than implementation details would reduce false negatives from naming inconsistencies.
 
-			extbf{Testing Automation:} The agent's comprehensive test generation capabilities, including mock-based isolation testing and integration test suites, suggest significant potential for automated test coverage improvement in software projects, addressing a persistent challenge in software quality assurance.
+	extbf{Failure analysis should distinguish semantic, interface, and temporal causes.} The three-layer model provides a structured diagnostic framework that separates these dimensions, enabling more targeted improvement of both agents and evaluation protocols.
 
-These results should be interpreted within their limitations. Our benchmark, while systematic, does not capture several dimensions of real-world software development, including long-term code maintenance, evolving requirements, team collaboration dynamics, and domain-specific knowledge that may not be well-represented in training data.
+These recommendations are subject to limitations. Our variability analysis covers 6 of 50 tasks, and the three-layer model's generalizability to other agent architectures requires further validation.
 
 \subsection{Threats to Validity}
 
