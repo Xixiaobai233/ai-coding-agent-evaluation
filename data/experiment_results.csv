@@ -1,0 +1,19 @@
+task_id,type,complexity,status,tests_passed,tests_total,language,notes
+S1,algorithm,simple,pass,7,7,javascript,哈希表O(n)
+S2,algorithm,simple,pass,10,10,javascript,栈实现O(n)
+S3,bugfix,simple,pass,10,10,javascript,修复死循环+整数溢出
+S4,bugfix,simple,pass,4,4,jsx,useRef突破闭包
+S5,refactor,simple,pass,7,7,javascript,面条代码拆分为7函数
+S6,testing,simple,pass,26,26,javascript,3工具函数26用例
+M1,algorithm,medium,pass,8,8,javascript,双向链表+哈希表O(1)
+M2,algorithm,medium,pass,11,11,javascript,三色标记法DFS
+M3,bugfix,medium,pass,3,3,go,sync.RWMutex修复
+M4,bugfix,medium,pass,3,3,javascript,参数化查询+bcrypt
+M5,refactor,medium,pass,10,10,javascript,6策略类+策略模式
+M6,refactor,medium,pass,4,4,javascript,fs.promises+async/await
+M7,testing,medium,pass,18,18,javascript,supertest 18用例
+M8,testing,medium,pass,13,13,typescript,jest+mock 13用例
+H1,algorithm,hard,pass,7,7,javascript,红黑树插入+修复
+H2,bugfix,hard,pass,8,8,go,分布式锁+Lua脚本+看门狗
+H3,refactor,hard,pass,7,7,typescript,Saga编排器+5微服务
+H4,testing,hard,pass,6,6,go,并发压力测试+race检测

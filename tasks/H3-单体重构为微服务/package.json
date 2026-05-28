@@ -1,0 +1,13 @@
+{
+  "name": "h3-microservice-refactor",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "ts-node --test orderService.test.ts"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "ts-node": "^10.9.0",
+    "@types/node": "^22.0.0"
+  }
+}

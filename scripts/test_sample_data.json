@@ -1,0 +1,41 @@
+{
+  "metadata": {
+    "description": "Claude Code 实证研究模拟测试数据",
+    "generated_for": "analyze_results.py + generate_charts.py 测试",
+    "n_samples": 30,
+    "columns": ["id", "task_type", "complexity", "condition", "success", "time_taken", "tokens_used", "num_turns"],
+    "note": "使用 --format csv 参数可转换为 CSV，或用 pandas 直接读取"
+  },
+  "data": [
+    {"id": 1,  "task_type": "code_generation", "complexity": 2, "condition": "claude_code", "success": 1, "time_taken": 45.2,  "tokens_used": 1200,  "num_turns": 2},
+    {"id": 2,  "task_type": "code_generation", "complexity": 3, "condition": "claude_code", "success": 1, "time_taken": 78.1,  "tokens_used": 2100,  "num_turns": 3},
+    {"id": 3,  "task_type": "code_generation", "complexity": 4, "condition": "claude_code", "success": 0, "time_taken": 152.3, "tokens_used": 4500,  "num_turns": 5},
+    {"id": 4,  "task_type": "code_generation", "complexity": 2, "condition": "baseline",    "success": 1, "time_taken": 89.7,  "tokens_used": 1800,  "num_turns": 4},
+    {"id": 5,  "task_type": "code_generation", "complexity": 3, "condition": "baseline",    "success": 0, "time_taken": 134.5, "tokens_used": 3200,  "num_turns": 6},
+    {"id": 6,  "task_type": "code_generation", "complexity": 4, "condition": "baseline",    "success": 0, "time_taken": 201.8, "tokens_used": 5100,  "num_turns": 8},
+    {"id": 7,  "task_type": "debugging",       "complexity": 1, "condition": "claude_code", "success": 1, "time_taken": 22.4,  "tokens_used": 600,   "num_turns": 1},
+    {"id": 8,  "task_type": "debugging",       "complexity": 3, "condition": "claude_code", "success": 1, "time_taken": 65.3,  "tokens_used": 1900,  "num_turns": 2},
+    {"id": 9,  "task_type": "debugging",       "complexity": 5, "condition": "claude_code", "success": 1, "time_taken": 98.7,  "tokens_used": 2800,  "num_turns": 4},
+    {"id": 10, "task_type": "debugging",       "complexity": 1, "condition": "baseline",    "success": 1, "time_taken": 45.6,  "tokens_used": 1100,  "num_turns": 3},
+    {"id": 11, "task_type": "debugging",       "complexity": 3, "condition": "baseline",    "success": 0, "time_taken": 110.2, "tokens_used": 3100,  "num_turns": 5},
+    {"id": 12, "task_type": "debugging",       "complexity": 5, "condition": "baseline",    "success": 0, "time_taken": 175.4, "tokens_used": 4800,  "num_turns": 7},
+    {"id": 13, "task_type": "refactoring",     "complexity": 2, "condition": "claude_code", "success": 1, "time_taken": 38.9,  "tokens_used": 1500,  "num_turns": 2},
+    {"id": 14, "task_type": "refactoring",     "complexity": 3, "condition": "claude_code", "success": 1, "time_taken": 72.4,  "tokens_used": 2300,  "num_turns": 3},
+    {"id": 15, "task_type": "refactoring",     "complexity": 4, "condition": "claude_code", "success": 0, "time_taken": 135.6, "tokens_used": 3900,  "num_turns": 5},
+    {"id": 16, "task_type": "refactoring",     "complexity": 2, "condition": "baseline",    "success": 1, "time_taken": 67.8,  "tokens_used": 1700,  "num_turns": 3},
+    {"id": 17, "task_type": "refactoring",     "complexity": 3, "condition": "baseline",    "success": 1, "time_taken": 98.3,  "tokens_used": 2600,  "num_turns": 4},
+    {"id": 18, "task_type": "refactoring",     "complexity": 4, "condition": "baseline",    "success": 0, "time_taken": 188.9, "tokens_used": 5200,  "num_turns": 7},
+    {"id": 19, "task_type": "documentation",   "complexity": 1, "condition": "claude_code", "success": 1, "time_taken": 15.2,  "tokens_used": 400,   "num_turns": 1},
+    {"id": 20, "task_type": "documentation",   "complexity": 2, "condition": "claude_code", "success": 1, "time_taken": 28.7,  "tokens_used": 800,   "num_turns": 2},
+    {"id": 21, "task_type": "documentation",   "complexity": 3, "condition": "claude_code", "success": 1, "time_taken": 52.1,  "tokens_used": 1400,  "num_turns": 3},
+    {"id": 22, "task_type": "documentation",   "complexity": 1, "condition": "baseline",    "success": 1, "time_taken": 35.4,  "tokens_used": 900,   "num_turns": 2},
+    {"id": 23, "task_type": "documentation",   "complexity": 2, "condition": "baseline",    "success": 1, "time_taken": 58.9,  "tokens_used": 1600,  "num_turns": 3},
+    {"id": 24, "task_type": "documentation",   "complexity": 3, "condition": "baseline",    "success": 0, "time_taken": 95.6,  "tokens_used": 2400,  "num_turns": 5},
+    {"id": 25, "task_type": "testing",         "complexity": 2, "condition": "claude_code", "success": 1, "time_taken": 42.3,  "tokens_used": 1300,  "num_turns": 2},
+    {"id": 26, "task_type": "testing",         "complexity": 4, "condition": "claude_code", "success": 1, "time_taken": 88.5,  "tokens_used": 2500,  "num_turns": 4},
+    {"id": 27, "task_type": "testing",         "complexity": 5, "condition": "claude_code", "success": 0, "time_taken": 145.2, "tokens_used": 4100,  "num_turns": 6},
+    {"id": 28, "task_type": "testing",         "complexity": 2, "condition": "baseline",    "success": 1, "time_taken": 78.4,  "tokens_used": 2000,  "num_turns": 3},
+    {"id": 29, "task_type": "testing",         "complexity": 4, "condition": "baseline",    "success": 0, "time_taken": 142.1, "tokens_used": 3800,  "num_turns": 6},
+    {"id": 30, "task_type": "testing",         "complexity": 5, "condition": "baseline",    "success": 0, "time_taken": 210.3, "tokens_used": 5500,  "num_turns": 8}
+  ]
+}
