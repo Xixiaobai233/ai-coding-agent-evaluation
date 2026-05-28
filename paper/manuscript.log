@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.5.27)  28 MAY 2026 21:40
+This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.5.27)  28 MAY 2026 22:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -546,7 +546,110 @@ File: l3backend-xetex.def 2025-10-09 L3 backend support: XeTeX
 \g__graphics_track_int=\count336
 \g__pdfannot_backend_int=\count337
 \g__pdfannot_backend_link_int=\count338
-) (manuscript.aux)
+) (manuscript.aux
+
+LaTeX Warning: Label `sec:methodology' multiply defined.
+
+
+LaTeX Warning: Label `tab:task_definitions' multiply defined.
+
+
+LaTeX Warning: Label `sec:results' multiply defined.
+
+
+LaTeX Warning: Label `fig:success_rate' multiply defined.
+
+
+LaTeX Warning: Label `tab:overall_results' multiply defined.
+
+
+LaTeX Warning: Label `fig:time_by_type' multiply defined.
+
+
+LaTeX Warning: Label `fig:complexity_vs_time' multiply defined.
+
+
+LaTeX Warning: Label `tab:by_type' multiply defined.
+
+
+LaTeX Warning: Label `fig:tokens_by_type' multiply defined.
+
+
+LaTeX Warning: Label `fig:turns_by_type' multiply defined.
+
+
+LaTeX Warning: Label `tab:by_difficulty' multiply defined.
+
+
+LaTeX Warning: Label `tab:by_language' multiply defined.
+
+
+LaTeX Warning: Label `sec:variability' multiply defined.
+
+
+LaTeX Warning: Label `tab:variability' multiply defined.
+
+
+LaTeX Warning: Label `sec:discussion' multiply defined.
+
+
+LaTeX Warning: Label `sec:human_baseline' multiply defined.
+
+
+LaTeX Warning: Label `sec:related' multiply defined.
+
+
+LaTeX Warning: Label `sec:conclusion' multiply defined.
+
+
+LaTeX Warning: Label `hindle2012naturalness' multiply defined.
+
+
+LaTeX Warning: Label `chen2021evaluating' multiply defined.
+
+
+LaTeX Warning: Label `roziere2023code' multiply defined.
+
+
+LaTeX Warning: Label `peng2023impact' multiply defined.
+
+
+LaTeX Warning: Label `vaithilingam2022expectation' multiply defined.
+
+
+LaTeX Warning: Label `ziegler2022productivity' multiply defined.
+
+
+LaTeX Warning: Label `austin2021program' multiply defined.
+
+
+LaTeX Warning: Label `hendrycks2021measuring' multiply defined.
+
+
+LaTeX Warning: Label `fried2022incoder' multiply defined.
+
+
+LaTeX Warning: Label `brown2020language' multiply defined.
+
+
+LaTeX Warning: Label `li2023starcoder' multiply defined.
+
+
+LaTeX Warning: Label `mozannar2023reading' multiply defined.
+
+
+LaTeX Warning: Label `lu2021codexglue' multiply defined.
+
+
+LaTeX Warning: Label `jimenez2023swebench' multiply defined.
+
+
+LaTeX Warning: Label `xi2023rise' multiply defined.
+
+
+LaTeX Warning: Label `wang2023survey' multiply defined.
+
+)
 \openout1 = `manuscript.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 51.
@@ -788,48 +891,6 @@ LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
 LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
 (Font)              using `TU/ptm/bx/n' instead on input line 178.
 
-! Missing $ inserted.
-<inserted text> 
-                $
-l.183 ...ion is achieved by setting the ANTHROPIC_
-                                                  BASE_URL environment varia...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.184 
-      
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-
-Overfull \hbox (60.10947pt too wide) in paragraph at lines 183--184
-\TU/ptm/m/sc/10 ANTHROPIC$[]\OML/cmm/m/it/10 ASE[]RLenvironmentvariabletopointt
-otheDeepSeek \OMS/cmsy/m/n/10 ^^@
- []
-
-
-Overfull \hbox (425.93878pt too wide) in paragraph at lines 183--184
-\OML/cmm/m/it/10 compatibleAPIendpoint; effectivelysubstitutingthedefaultClaude
-modelwithDeepSeekV\OT1/cmr/m/n/10 4\OML/cmm/m/it/10 whilepreservingClaudeCode[]
-sagenticframeworkcapabilities \OMS/cmsy/m/n/10 ^^@
- []
-
-
-Overfull \hbox (22.0812pt too wide) in paragraph at lines 183--184
-\OMS/cmsy/m/n/10 ^^@ ^^@ \OML/cmm/m/it/10 includingfilesystemoperations; codeex
-ecution; andmulti \OMS/cmsy/m/n/10 ^^@
- []
-
-
-Overfull \hbox (594.5306pt too wide) in paragraph at lines 183--184
-\OML/cmm/m/it/10 turninteractionmanagement:Thissetupenablesempiricalevaluationo
-ftheClaudeCodeagenticframeworkwithdifferentunderlyingmodelarchitectures:Theeval
-uationwasperformedasfollows \OT1/cmr/m/n/10 :$ 
- []
-
 
 LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
 (Font)              using `TU/ptm/bx/n' instead on input line 186.
@@ -976,6 +1037,7 @@ Underfull \hbox (badness 3128) in paragraph at lines 339--340
 \TU/pcr/m/n/10 useState, useEffect) and proper handling of the
  []
 
+[5]
 
 LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
 (Font)              using `TU/ptm/bx/n' instead on input line 380.
@@ -1006,18 +1068,14 @@ Overfull \hbox (27.53711pt too wide) in paragraph at lines 378--390
  []
 
 
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[5]
-
 LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
 (Font)              using `TU/ptm/bx/n' instead on input line 417.
 
+[6]
 
 LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
 (Font)              using `TU/ptm/bx/n' instead on input line 419.
 
-[6]
 
 LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
 (Font)              using `TU/ptm/bx/n' instead on input line 421.
@@ -1056,70 +1114,75 @@ LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
 
 
 LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/bx/n' instead on input line 463.
+(Font)              using `TU/ptm/bx/n' instead on input line 461.
 
 [7]
 
 LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 463.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
 (Font)              using `TU/ptm/bx/n' instead on input line 465.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 465--466
+[]\TU/pcr/m/n/10 Cross-model comparison: Systematic comparisons
+ []
 
 
 LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
 (Font)              using `TU/ptm/bx/n' instead on input line 467.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 467--468
-[]\TU/pcr/m/n/10 Cross-model comparison: Systematic comparisons
- []
-
-
 LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
 (Font)              using `TU/ptm/bx/n' instead on input line 469.
 
+[8]
+! Text line contains an invalid character.
+l.573 ^^H
+         egin{abstract}
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+[9]
+
+! LaTeX Error: \begin{document} ended by \end{abstract}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.575 \end{abstract}
+                    
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Extra \endgroup.
+\end  ...end#1\endcsname \@checkend {#1}\endgroup 
+                                                  \UseHook {env/#1/after}\if...
+l.575 \end{abstract}
+                    
+Things are pretty mixed up, but I think the worst is over.
+
 
 LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/bx/n' instead on input line 471.
+(Font)              using `TU/ptm/bx/n' instead on input line 577.
 
-[8]
+)
+! Emergency stop.
+<*> ./manuscript.tex
+                    
+*** (job aborted, no legal \end found)
 
-** Conference Paper **
-Before submitting the final camera ready copy, remember to:
-
- 1. Manually equalize the lengths of two columns on the last page
- of your paper;
-
- 2. Ensure that any PostScript and/or PDF output post-processing
- uses only Type 1 fonts and that every step in the generation
- process uses the appropriate paper size.
-
-[9] (manuscript.aux)
- ***********
-LaTeX2e <2025-11-01>
-L3 programming layer <2025-12-24>
- ***********
-
-
-LaTeX Font Warning: Some font shapes were not available, defaults substituted.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package rerunfilecheck Warning: File `manuscript.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `manuscript.out':
-(rerunfilecheck)             Before: 116598D52CE7E47DA9E8F5EA6D8F92B2;6913
-(rerunfilecheck)             After:  289F16CD599B236F54DBE900FF2311C6;7102.
- ) 
+ 
 Here is how much of TeX's memory you used:
- 14353 strings out of 402987
- 226213 string characters out of 5448524
- 682664 words of memory out of 5000000
- 42900 multiletter control sequences out of 15000+600000
+ 14357 strings out of 402987
+ 226231 string characters out of 5448524
+ 690599 words of memory out of 5000000
+ 42906 multiletter control sequences out of 15000+600000
  632962 words of font info for 71 fonts, out of 8000000 for 9000
  1351 hyphenation exceptions out of 8191
- 72i,10n,79p,2220b,456s stack positions out of 10000i,1000n,20000p,200000b,200000s
-
+ 72i,10n,79p,1317b,458s stack positions out of 10000i,1000n,20000p,200000b,200000s
 Output written on manuscript.pdf (9 pages).
