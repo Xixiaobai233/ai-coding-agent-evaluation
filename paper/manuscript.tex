@@ -60,7 +60,7 @@
 \maketitle
 
 \begin{abstract}
-AI-powered coding agents are increasingly used for software development tasks, yet their behavior across different task types remains insufficiently characterized. This paper presents a small-scale empirical case study of an agentic coding setup using Claude Code as the orchestration environment with a DeepSeek-based backend. We evaluate the setup on 18 core software development tasks (extended to 50 in supplementary materials) covering algorithm implementation, bug fixing, refactoring, and test writing. In the primary single-run evaluation, the agent completed all 18 core tasks and passed all 162 predefined test assertions. To assess run-to-run stability, we further repeated six representative tasks five times each. Five of these tasks remained stable across all runs, whereas a distributed-lock bug-fixing task succeeded in only 3 out of 5 runs, revealing substantial variability for complex concurrent logic. These findings suggest that the tested tasks were completed successfully by the agentic coding system, but single-run evaluation may overestimate reliability for concurrency-heavy or distributed-system tasks. We discuss threats to validity including benchmark size. An extended benchmark of 50 tasks totaling 414 assertions is described in the supplementary materials. We discuss threats including training-data contamination, absence of human baselines, and limitations of test-based evaluation. All supplementary materials are publicly available on GitHub.
+AI-powered coding agents are increasingly used for software development tasks, yet their behavior across different task types remains insufficiently characterized. This paper presents a small-scale empirical case study of an agentic coding setup using Claude Code as the orchestration environment with a DeepSeek-based backend. We evaluate the setup on 18 core software development tasks (extended to 50 in supplementary materials) covering algorithm implementation, bug fixing, refactoring, and test writing. In the primary single-run evaluation, the agent completed all 18 core tasks and passed all 162 predefined test assertions. To assess run-to-run stability, we further repeated six representative tasks five times each. Five of these tasks remained stable across all runs, whereas a distributed-lock bug-fixing task succeeded in only 3 out of 5 runs, revealing substantial variability for complex concurrent logic. These findings suggest that the tested tasks were completed successfully by the agentic coding system, but single-run evaluation may overestimate reliability for concurrency-heavy or distributed-system tasks. We propose a three-layer failure model capturing semantic correctness, interface compatibility, and temporal stability, along with a variance index for quantifying run-to-run reliability.. We discuss threats to validity including benchmark size. An extended benchmark of 50 tasks totaling 414 assertions is described in the supplementary materials. We discuss threats including training-data contamination, absence of human baselines, and limitations of test-based evaluation. All supplementary materials are publicly available on GitHub.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -94,7 +94,7 @@ The primary contributions of this paper are:
  \item A systematically designed benchmark of 18 core software development tasks (extended to 50) spanning four task types and three difficulty levels, implementing a balanced evaluation framework for AI coding agents.
  \item A comprehensive empirical evaluation of Claude Code with deepseek-v4-flash, achieving 100\% task pass rate and 100\% test assertion pass rate across 162 tests in four programming languages in single-run evaluation, complemented by a variability analysis across 30 repeated runs.
  \item A detailed analysis of the agent's performance characteristics across different task categories, difficulty levels, and programming languages, identifying strengths and patterns in automated code generation.
- \item A discussion of methodological considerations for evaluating AI coding agents, including limitations of single-run evaluations and the need for human baselines and statistical rigor.
+ \item A three-layer analysis framework (semantic correctness, interface compatibility, temporal stability) for understanding AI code reliability beyond single-run pass/fail, with a case study demonstrating all three layers.\item A variance index for quantifying run-to-run reliability, supported by empirical data from 30 repeated runs.
 \end{enumerate}
 
 \subsection{Paper Organization}
@@ -177,6 +177,24 @@ We employed a multi-dimensional evaluation framework with both objective and ana
  \item 			extbf{Language Robustness:} Consistency of code generation quality across JavaScript, TypeScript, Go, and JSX.
  \item 			extbf{Edge-Case Sensitivity:} Handling of boundary conditions, error states, and exceptional inputs.
 \end{itemize}
+
+\subsection{A Three-Layer Perspective for Analyzing AI-Generated Code}
+\label{sec:three_layer}
+
+Traditional pass/fail evaluation treats AI code as a binary outcome: correct or incorrect.
+We argue that AI code reliability is better understood along three complementary analysis dimensions:
+
+	extbf{L1 --- Semantic Correctness:} Does the code correctly implement the required algorithm and pass all test assertions? This is what traditional metrics measure.
+
+	extbf{L2 --- Interface Compatibility:} Does the generated code integrate with the existing codebase---preserving function signatures, struct fields, and type definitions? LLMs optimize for semantic equivalence but may produce valid yet incompatible interfaces across independent generations.
+
+	extbf{L3 --- Temporal Stability:} Does the solution produce consistent outcomes across repeated runs? This captures non-deterministic behaviors such as race conditions and timing sensitivity that single-run evaluations miss entirely.
+
+These three layers are not a strict taxonomy but complementary lenses for analyzing AI code quality beyond single-run pass/fail.
+
+We further introduce a 	extbf{Variance Index (VI)}---the variance of test assertions passed across $n$ repeated runs of the same task---as a simple metric for quantifying run-to-run stability:
+\[VI = rac{1}{n}\sum_{i=1}^{n}(x_i - ar{x})^2\]
+where $x_i$ is the tests passed in the $i$-th run and $ar{x}$ is the mean. A low VI indicates stable performance; a high VI flags tasks where single-run results may be misleading.
 
 \subsection{Experimental Setup}
 
@@ -401,9 +419,9 @@ H2 & Bug Fix & Hard & 3/5 (60\%) & 4.8 & 2.56 \\
 \end{tabular}
 \end{table}
 
-The results demonstrate that the AI coding agent achieved 100\% task pass rates and zero variance for five of the six tasks (S1, S3, M1, M4, H1), confirming that single-run evaluations are reliable for well-specified programming tasks. However, the hard distributed lock deadlock fix (H2) exhibited notable variability with a pass rate of 60\% (3/5) and variance of 2.56. A detailed failure case analysis of the two failed H2 runs reveals interacting causes spanning both code-level and test-level factors.
+Using our proposed Variance Index, the results demonstrate that the AI coding agent achieved 100\% task pass rates and $VI = 0.00$ for five of the six tasks (S1, S3, M1, M4, H1), confirming that single-run evaluations are reliable for well-specified programming tasks. However, the hard distributed lock deadlock fix (H2) exhibited notable variability with a pass rate of 60\% (3/5) and variance of 2.56. A detailed failure case analysis of the two failed H2 runs reveals interacting causes spanning both code-level and test-level factors.
 
-\subsubsection{Three-Level Failure Analysis of H2}
+\subsubsection{Three-Layer Failure Analysis of H2}
 Analysis of the two failed H2 runs reveals three distinct layers of interaction between the agent-generated code and the test suite:
 
 				extbf{Layer 1 --- Semantic Correctness (Intact).} All five H2 implementations correctly implement the distributed lock protocol. Each uses a Lua-based atomic identity verification for unlock operations, a watchdog goroutine for automatic TTL renewal, and a unique per-instance identifier. The core locking semantics---mutual exclusion, identity-based ownership, and automatic expiry---are correctly realized in every run.
