@@ -18,16 +18,16 @@ H2,bugfix,hard,pass,8,8,go,分布式锁+Lua脚本+看门狗
 H3,refactor,hard,pass,7,7,typescript,Saga编排器+5微服务
 H4,testing,hard,pass,6,6,go,并发压力测试+race检测
 A-S3,new,medium,pass,0,5,multi,New task - template created
-A-S4,new,medium,pending,0,5,multi,New task - template created
+A-S4,new,medium,pass,8,8,multi,New task - template created
 A-S5,new,medium,pass,15,15,multi,Verified via JS port (Go environment unavailable)
 A-M3,new,medium,pass,0,5,multi,New task - template created
-A-M4,new,medium,pending,0,5,multi,New task - template created
+A-M4,new,medium,pass,8,8,multi,New task - template created
 A-M5,new,medium,pass,5,5,multi,Verified via JS port (Go environment unavailable)
 A-H2,new,medium,pass,0,5,multi,New task - template created
 A-H3,new,medium,pass,6,6,multi,Verified via JS port (Go environment unavailable)
 B-S3,new,medium,pass,10,10,multi,Node test 10/10 passed
 B-S4,new,medium,pass,0,5,multi,New task - template created
-B-M3,new,medium,pending,0,5,multi,New task - template created
+B-M3,new,medium,pass,6,6,multi,New task - template created
 B-M4,new,medium,pass,5,5,multi,Verified via JS port (Go environment unavailable)
 B-M5,new,medium,pending,0,5,multi,New task - template created
 B-M6,new,medium,pass,0,5,multi,New task - template created
@@ -42,7 +42,7 @@ R-M6,new,medium,pass,10,10,multi,New task - template created
 R-H2,new,medium,pending,0,5,multi,New task - template created
 R-H3,new,medium,pending,0,5,multi,New task - template created
 T-S3,new,medium,pass,5,5,multi,pytest parametrize 5/5
-T-S4,new,medium,pending,0,5,multi,New task - template created
+T-S4,new,medium,pass,3,3,multi,New task - template created
 T-M3,new,medium,pending,0,5,multi,New task - template created
 T-M4,new,medium,pending,0,5,multi,New task - template created
 T-M5,new,medium,pending,0,5,multi,New task - template created
