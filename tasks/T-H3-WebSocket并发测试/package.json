@@ -1,0 +1,16 @@
+{
+  "name": "t-h3-websocket-concurrency-test",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "jest --config jest.config.js --runInBand --forceExit"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/ws": "^8.18.1",
+    "jest": "^30.4.2",
+    "ts-jest": "^29.4.11",
+    "typescript": "^6.0.3",
+    "ws": "^8.18.2"
+  }
+}
