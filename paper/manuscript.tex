@@ -455,6 +455,8 @@ We identify several threats to the validity of our findings:
 
 			extbf{Task selection bias:} The 18 tasks were designed by the researchers and may not represent the full distribution of challenges in industrial software development. There is a risk that the selected tasks align particularly well with the agent's capabilities, leading to inflated performance estimates.
 
+	extbf{Reproducibility:} The experimental setup described in this paper relies on a non-standard API proxy configuration (Claude Code with ANTHROPIC_BASE_URL redirected to a DeepSeek-compatible endpoint). Complete reproducibility requires access to the same API endpoint, model version, and configuration parameters, which may not be publicly available. We have disclosed all configuration details to the best of our knowledge, but independent replication by third parties is encouraged. There is a risk that the selected tasks align particularly well with the agent's capabilities, leading to inflated performance estimates.
+
 \subsubsection{External Validity}
 
 			extbf{Model dependency:} Our results are specific to the Claude Code framework with deepseek-v4-flash. Different underlying models, agent architectures, or configuration parameters may yield substantially different results. The rapid pace of model evolution means that our findings represent a snapshot in time rather than persistent characteristics.
