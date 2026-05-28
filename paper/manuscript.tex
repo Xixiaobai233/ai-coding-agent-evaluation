@@ -50,7 +50,7 @@
 
 \begin{document}
 
-\title{An Empirical Evaluation of AI-Powered Coding Agents: A Case Study of Claude Code with DeepSeek V4 on Software Development Tasks}
+\title{An Empirical Evaluation of AI-Powered Coding Agents: A Case Study of Claude Code with deepseek-v4-flash on Software Development Tasks}
 
 \author{\IEEEauthorblockN{Sun Chengxi}
 \IEEEauthorblockA{Independent Researcher\\
@@ -64,7 +64,7 @@ AI-powered coding agents are increasingly used for software development tasks, y
 \end{abstract}
 
 \begin{IEEEkeywords}
-AI coding agents, large language models, empirical software engineering, automated programming, Claude Code, DeepSeek V4
+AI coding agents, large language models, empirical software engineering, automated programming, Claude Code, deepseek-v4-flash
 \end{IEEEkeywords}
 
 \section{Introduction}
@@ -92,7 +92,7 @@ The primary contributions of this paper are:
 
 \begin{enumerate}
     \item A systematically designed benchmark of 18 software development tasks spanning four task types and three difficulty levels, implementing a balanced evaluation framework for AI coding agents.
-    \item A comprehensive empirical evaluation of Claude Code with DeepSeek V4, achieving 100\% task pass rate and 100\% test assertion pass rate across 162 tests in four programming languages in single-run evaluation, complemented by a variability analysis across 30 repeated runs.
+    \item A comprehensive empirical evaluation of Claude Code with deepseek-v4-flash, achieving 100\% task pass rate and 100\% test assertion pass rate across 162 tests in four programming languages in single-run evaluation, complemented by a variability analysis across 30 repeated runs.
     \item A detailed analysis of the agent's performance characteristics across different task categories, difficulty levels, and programming languages, identifying strengths and patterns in automated code generation.
     \item A discussion of methodological considerations for evaluating AI coding agents, including limitations of single-run evaluations and the need for human baselines and statistical rigor.
 \end{enumerate}
@@ -180,11 +180,11 @@ We employed a multi-dimensional evaluation framework with both objective and ana
 
 \subsection{Experimental Setup}
 
-The experiment was conducted using Claude Code, an AI-powered coding agent developed by Anthropic. The underlying language model used was DeepSeek V4, accessed through an API proxy configuration that routes Claude Code's model requests to the DeepSeek API endpoint. This configuration is achieved by setting the \\texttt{ANTHROPIC\_BASE\_URL} environment variable to point to a DeepSeek-compatible API endpoint, effectively substituting the default Claude model with DeepSeek V4 while preserving Claude Code's agentic framework capabilities---including file system operations, code execution, and multi-turn interaction management. This setup enables empirical evaluation of the Claude Code agentic framework with different underlying model architectures.
+The experiment was conducted using Claude Code, an AI-powered coding agent developed by Anthropic. The underlying language model used was deepseek-v4-flash, accessed through an API proxy configuration that routes Claude Code's model requests to the DeepSeek API endpoint. This configuration is achieved by setting the \\texttt{ANTHROPIC\_BASE\_URL} environment variable to point to a DeepSeek-compatible API endpoint, effectively substituting the default Claude model with deepseek-v4-flash while preserving Claude Code's agentic framework capabilities---including file system operations, code execution, and multi-turn interaction management. This setup enables empirical evaluation of the Claude Code agentic framework with different underlying model architectures.
 
 \subsubsection{Model Configuration}
 
-The DeepSeek V4 model was accessed through the API proxy without explicit parameter tuning; default settings were used for both the agentic framework and the underlying model. The estimated inference parameters for the DeepSeek V4 API endpoint were: temperature of approximately 0.7 (default value; not explicitly overridden), top-p of 1.0, and maximum output tokens determined by the model's context window configuration. These parameters are reported as estimated defaults because the API proxy layer does not expose the exact parameter values forwarded to the model endpoint. The Claude Code version was determined at runtime via \texttt{claude --version} during each experiment execution.
+The deepseek-v4-flash model was accessed through the API proxy without explicit parameter tuning; default settings were used for both the agentic framework and the underlying model. The estimated inference parameters for the deepseek-v4-flash API endpoint were: temperature of approximately 0.7 (default value; not explicitly overridden), top-p of 1.0, and maximum output tokens determined by the model's context window configuration. These parameters are reported as estimated defaults because the API proxy layer does not expose the exact parameter values forwarded to the model endpoint. The Claude Code version was determined at runtime via \texttt{claude --version} during each experiment execution.
 
 \subsubsection{Interaction Protocol}
 
@@ -430,7 +430,7 @@ Several factors may contribute to this high performance. First, one possible exp
 
 The consistent performance across task types suggests that current AI coding agent capabilities may be more evenly distributed across task categories than observed in earlier code generation benchmarks. This contrasts with earlier findings~\cite{chen2021evaluating} that showed significant performance variation across problem categories in code generation benchmarks. The improvement may reflect advances in both base model capabilities and the agentic framework's ability to adapt its problem-solving strategy to different task requirements.
 
-An important caveat in interpreting these results is the potential for training data contamination. Many of the tasks in our benchmark---particularly the classic algorithm problems (e.g., Two-Sum, Valid Parentheses, LRU Cache, Red-Black Tree) and common bug patterns (e.g., binary search off-by-one, SQL injection)---are well-documented in programming education resources and open-source repositories that are likely included in the training corpus of DeepSeek V4. While this does not diminish the practical utility of the agent's correct solutions, it means that performance on these tasks may not generalize to entirely novel programming problems that lack similar training precedents. Future benchmarks should incorporate tasks specifically designed to assess generalization to unseen problem types, such as those requiring recently published algorithms or domain-specific knowledge unlikely to appear in training data. This concern parallels similar discussions in the broader LLM evaluation literature regarding benchmark contamination~\cite{hendrycks2021measuring}.
+An important caveat in interpreting these results is the potential for training data contamination. Many of the tasks in our benchmark---particularly the classic algorithm problems (e.g., Two-Sum, Valid Parentheses, LRU Cache, Red-Black Tree) and common bug patterns (e.g., binary search off-by-one, SQL injection)---are well-documented in programming education resources and open-source repositories that are likely included in the training corpus of deepseek-v4-flash. While this does not diminish the practical utility of the agent's correct solutions, it means that performance on these tasks may not generalize to entirely novel programming problems that lack similar training precedents. Future benchmarks should incorporate tasks specifically designed to assess generalization to unseen problem types, such as those requiring recently published algorithms or domain-specific knowledge unlikely to appear in training data. This concern parallels similar discussions in the broader LLM evaluation literature regarding benchmark contamination~\cite{hendrycks2021measuring}.
 
 \subsection{Implications for Software Engineering Practice}
 
@@ -458,7 +458,7 @@ We identify several threats to the validity of our findings:
 
 \subsubsection{External Validity}
 
-\textbf{Model dependency:} Our results are specific to the Claude Code agent with DeepSeek V4. Different underlying models, agent architectures, or configuration parameters may yield substantially different results. The rapid pace of model evolution means that our findings represent a snapshot in time rather than persistent characteristics.
+\textbf{Model dependency:} Our results are specific to the Claude Code agent with deepseek-v4-flash. Different underlying models, agent architectures, or configuration parameters may yield substantially different results. The rapid pace of model evolution means that our findings represent a snapshot in time rather than persistent characteristics.
 
 \textbf{Task scope limitation:} Real-world software development involves activities beyond code production, including requirements analysis, system design, cross-team coordination, code review participation, and operational incident response. Our benchmark does not evaluate these dimensions.
 
@@ -521,12 +521,12 @@ Our work contributes a complementary benchmark focused on systematic variation a
 
 The paradigm of AI agents---systems that combine language models with tool-use capabilities, planning, and multi-turn interaction---has recently gained attention in software engineering contexts. Xi et al.~\cite{xi2023rise} surveyed the emerging field of LLM-based agents, identifying software engineering as a key application domain. Wang et al.~\cite{wang2023survey} reviewed autonomous agents for software development, highlighting approaches for requirements analysis, code generation, testing, and deployment.
 
-Claude Code, the subject of our evaluation, represents this agentic paradigm by combining the DeepSeek V4 model's reasoning capabilities with a structured interaction framework that supports code editing, file system operations, and iterative refinement. Our study contributes empirical evidence on the effectiveness of this approach across diverse software development tasks.
+Claude Code, the subject of our evaluation, represents this agentic paradigm by combining the deepseek-v4-flash model's reasoning capabilities with a structured interaction framework that supports code editing, file system operations, and iterative refinement. Our study contributes empirical evidence on the effectiveness of this approach across diverse software development tasks.
 
 \section{Conclusion}
 \label{sec:conclusion}
 
-This paper presented a comprehensive empirical evaluation of Claude Code, an AI-powered coding agent built on DeepSeek V4, across 18 software development tasks spanning algorithm implementation, bug fixing, code refactoring, and test writing at three difficulty levels. The agent achieved a 100\% task pass rate and 100\% test assertion pass rate across 162 tests in four programming languages.
+This paper presented a comprehensive empirical evaluation of Claude Code, an AI-powered coding agent built on deepseek-v4-flash, across 18 software development tasks spanning algorithm implementation, bug fixing, code refactoring, and test writing at three difficulty levels. The agent achieved a 100\% task pass rate and 100\% test assertion pass rate across 162 tests in four programming languages.
 
 Our findings suggest that current AI coding agents possess uniform performance across the specific tasks in our benchmark, from fundamental algorithmic reasoning through to sophisticated architectural refactoring and comprehensive test generation. The consistent performance across task types and difficulty levels suggests that these capabilities are more evenly distributed across task categories than observed in earlier code generation benchmarks.
 
