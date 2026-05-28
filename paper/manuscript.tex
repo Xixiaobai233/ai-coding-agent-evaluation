@@ -511,35 +511,25 @@ Building on the threats to validity, we enumerate specific limitations that shou
 \section{Related Work}
 \label{sec:related}
 
-\subsection{Code Generation with Large Language Models}
+\subsection{Single-Run Evaluation Paradigm}
 
-The application of large language models to code generation has been extensively studied. Chen et al.~\cite{chen2021evaluating} introduced Codex, a GPT-based model fine-tuned on public GitHub repositories, and evaluated it on the HumanEval benchmark of 164 hand-written programming problems, reporting pass rates of 28.8\% to 72.3\% depending on model size. Austin et al.~\cite{austin2021program} introduced the MBPP (Mostly Basic Programming Problems) dataset of 974 entry-level Python programming tasks, establishing a benchmark that has been widely adopted for evaluating code generation models.
+The dominant methodology for evaluating AI code generation is single-run pass/fail on benchmark tasks. HumanEval~\cite{chen2021evaluating} established this paradigm, measuring pass@k from independent samples. MBPP~\cite{austin2021program} and APPS~\cite{hendrycks2021measuring} extended the scale to hundreds and thousands of problems, while StarCoder~\cite{li2023starcoder} and Code Llama~\cite{roziere2023code} followed the same single-run evaluation protocol. SWE-bench~\cite{jimenez2023swebench} and CodeXGLUE~\cite{lu2021codexglue} increased task realism but retained single-run evaluation.
 
-Subsequent work expanded the scope of evaluation. Li et al.~\cite{li2023starcoder} introduced StarCoder, a 15.5B parameter code LLM trained on permissively licensed GitHub code, demonstrating competitive performance on multiple code generation benchmarks. Roziere et al.~\cite{roziere2023code} developed Code Llama, a family of code-specialized LLMs based on Llama 2, achieving state-of-the-art performance on HumanEval and MBPP at the time of release. Fried et al.~\cite{fried2022incoder} explored infilling-based code generation with InCoder, demonstrating that bidirectional context improves code completion quality.
+The underlying assumption is that code generation is effectively deterministic. For agentic systems involving multi-turn interaction and tool use, this assumption is increasingly fragile. Our study directly examines this assumption through repeated runs.
 
-Our work differs from these studies in focusing on an agentic framework rather than isolated code generation, and in evaluating a broader range of software development activities beyond initial code generation.
+\subsection{Variability and Stability in AI Outputs}
 
-\subsection{Empirical Studies of AI-Assisted Programming}
+Variability in LLM outputs has been studied in natural language contexts~\cite{brown2020language}, but systematic analysis in code generation remains limited. Studies of AI-assisted programming~\cite{peng2023impact, ziegler2022productivity, mozannar2023reading} focus on productivity and user behavior rather than run-to-run consistency of generated code. The flakiness literature in software testing~\cite{lu2021codexglue} addresses non-deterministic test outcomes, but from the infrastructure perspective rather than the stability of AI-generated artifacts.
 
-Beyond model-centric evaluations, researchers have examined the practical impact of AI coding agents on developer productivity and behavior. Peng et al.~\cite{peng2023impact} conducted a controlled experiment with 95 professional developers at Microsoft, finding that GitHub Copilot users completed tasks 55.8\% faster, though with significant individual variation. Vaithilingam et al.~\cite{vaithilingam2022expectation} studied programmers' expectations and experiences with AI code assistants, finding that while participants appreciated the productivity benefits, they also expressed concerns about code quality and over-reliance.
+Our work extends these threads by examining run-to-run variability of AI-generated code as a distinct object of study, quantifying it through the proposed Variance Index.
 
-Mozannar et al.~\cite{mozannar2023reading} proposed a framework for evaluating code generation quality through test-based verification, which informed our evaluation methodology. They highlighted the importance of test suites for assessing functional correctness, a principle we adopted in designing our benchmark's verification infrastructure.
+\subsection{Failure Taxonomies for Generated Code}
 
-Ziegler et al.~\cite{ziegler2022productivity} measured the productivity impact of GitHub Copilot at scale within a large software company, reporting a 5--10\% reduction in development time for certain task categories but noting significant context-dependence in the results. Our study complements this work by providing fine-grained performance analysis across specific task types.
+Existing taxonomies of AI coding errors focus primarily on functional correctness---whether code compiles and passes tests. While valuable, these taxonomies do not distinguish between failures arising from incorrect logic (L1), API surface mismatches (L2), or timing-dependent non-determinism (L3). Our three-layer framework captures these distinct failure modes.
 
-\subsection{Benchmarks for Code Intelligence}
+\subsection{Positioning}
 
-Several benchmarks have been proposed for evaluating code intelligence systems. Hendrycks et al.~\cite{hendrycks2021measuring} introduced APPS, a benchmark of 10,000 Python programming problems drawn from coding competitions, establishing a challenging evaluation for code generation models. Lu et al.~\cite{lu2021codexglue} developed CodeXGLUE, a collection of benchmark tasks for code intelligence including code completion, defect detection, and code translation.
-
-More recently, Jimenez et al.~\cite{jimenez2023swebench} introduced SWE-bench, a benchmark for evaluating LLMs on real-world software engineering tasks drawn from GitHub issues and pull requests. This benchmark represents a significant step toward more ecologically valid evaluation of AI coding agents, as tasks are derived from actual software development scenarios rather than artificial programming problems.
-
-Our work contributes a complementary benchmark focused on systematic variation across task types and difficulty levels within a controlled experimental design, enabling more fine-grained analysis of capability boundaries.
-
-\subsection{AI Agents for Software Engineering}
-
-The paradigm of AI agents---systems that combine language models with tool-use capabilities, planning, and multi-turn interaction---has recently gained attention in software engineering contexts. Xi et al.~\cite{xi2023rise} surveyed the emerging field of LLM-based agents, identifying software engineering as a key application domain. Wang et al.~\cite{wang2023survey} reviewed autonomous agents for software development, highlighting approaches for requirements analysis, code generation, testing, and deployment.
-
-Claude Code, the subject of our evaluation, represents this agentic paradigm by combining the deepseek-v4-flash model's reasoning capabilities with a structured interaction framework that supports code editing, file system operations, and iterative refinement. Our study contributes empirical evidence on the effectiveness of this approach across diverse software development tasks.
+In summary, current evaluations share three limitations: (1) reliance on single-run pass/fail, (2) lack of systematic variability analysis, and (3) absence of a layered failure taxonomy for AI code. Our work addresses these gaps by combining repeated-measures evaluation with a three-layer analysis framework and a Variance Index for quantifying stability.
 
 \section{Conclusion}
 \label{sec:conclusion}
