@@ -441,7 +441,7 @@ The complete experimental data, including all 18 core task specifications and 32
 
 The central finding of this study is not that an AI coding agent achieved high pass rates---a result that is increasingly common for established benchmarks---but that single-run pass/fail outcomes can mask substantial reliability differences that the three-layer model reveals.
 
-At L1 (semantic correctness), the agent performed uniformly across all 50 tasks. Across 414 test assertions and 30 repeated runs, no semantic failures were observed. This suggests that for well-specified programming tasks, current AI coding agents can consistently produce functionally correct code.
+At L1 (semantic correctness), the agent performed uniformly across all 50 tasks. Across 414 test assertions and 30 repeated runs, no test-visible semantic failures were observed in the benchmark tasks. Within this benchmark, current AI coding agents consistently produced functionally correct code for the tested tasks.
 
 At L2 (interface compatibility), we observed a failure mode that is qualitatively different from traditional coding errors. The H2 task's correct implementations failed due to struct field naming mismatches---a form of semantic brittleness where the agent produces valid but incompatible code. This failure mode has no direct analog in human programming: a human developer reads the existing codebase and preserves naming conventions, whereas the agent generates each solution from scratch without awareness of interface expectations. This suggests that evaluations relying solely on compilation or test execution may underestimate integration effort for AI-generated code.
 
@@ -518,7 +518,7 @@ The underlying assumption is that code generation is effectively deterministic. 
 
 \subsection{Variability and Stability in AI Outputs}
 
-Variability in LLM outputs has been studied in natural language contexts~\cite{brown2020language}, but systematic analysis in code generation remains limited. Studies of AI-assisted programming~\cite{peng2023impact, ziegler2022productivity, mozannar2023reading} focus on productivity and user behavior rather than run-to-run consistency of generated code. The flakiness literature in software testing~\cite{lu2021codexglue} addresses non-deterministic test outcomes, but from the infrastructure perspective rather than the stability of AI-generated artifacts.
+Variability in LLM outputs has been studied in natural language contexts~\cite{brown2020language}, but systematic analysis in code generation remains limited. Studies of AI-assisted programming~\cite{peng2023impact, ziegler2022productivity, mozannar2023reading} focus on productivity and user behavior rather than run-to-run consistency of generated code. The flakiness literature in software testing addresses non-deterministic test outcomes, but from the infrastructure perspective rather than the stability of AI-generated artifacts.
 
 Our work extends these threads by examining run-to-run variability of AI-generated code as a distinct object of study, quantifying it through the proposed Variance Index.
 
