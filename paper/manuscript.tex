@@ -82,10 +82,10 @@ Furthermore, the rapid evolution of underlying models, from GPT-based architectu
 This study addresses the following research questions:
 
 \begin{enumerate}[leftmargin=*,label=RQ\arabic*:]
- \item 	extbf{Effectiveness Across Task Types:} How effectively does an AI-powered coding agent perform across diverse software development task categories, including algorithm implementation, bug fixing, refactoring, and test writing?
- \item 	extbf{Difficulty Scaling:} How does agent performance vary with task difficulty across simple, medium, and hard levels?
- \item 	extbf{Language Versatility:} How does the agent handle multiple programming languages with varying paradigms and concurrency models?
- \item 	extbf{Quality and Correctness:} What is the quality of generated code in terms of test pass rates, edge-case handling, and adherence to task specifications?
+ \item 			extbf{Effectiveness Across Task Types:} How effectively does an AI-powered coding agent perform across diverse software development task categories, including algorithm implementation, bug fixing, refactoring, and test writing?
+ \item 			extbf{Difficulty Scaling:} How does agent performance vary with task difficulty across simple, medium, and hard levels?
+ \item 			extbf{Language Versatility:} How does the agent handle multiple programming languages with varying paradigms and concurrency models?
+ \item 			extbf{Quality and Correctness:} What is the quality of generated code in terms of test pass rates, edge-case handling, and adherence to task specifications?
 \end{enumerate}
 
 The primary contributions of this paper are:
@@ -109,10 +109,10 @@ The remainder of this paper is organized as follows. Section~\ref{sec:methodolog
 We designed a benchmark suite of 18 software development tasks organized along two dimensions: task type and difficulty level. The four task types represent core software engineering activities:
 
 \begin{itemize}[leftmargin=*]
- \item 	extbf{Algorithm Implementation (5 tasks):} Implementing standard algorithms and data structures from natural language specifications.
- \item 	extbf{Bug Fixing (5 tasks):} Diagnosing and repairing intentionally introduced bugs in existing code.
- \item 	extbf{Code Refactoring (4 tasks):} Restructuring existing code to improve design, performance, or maintainability without changing external behavior.
- \item 	extbf{Test Writing (4 tasks):} Creating test suites for existing code components.
+ \item 			extbf{Algorithm Implementation (5 tasks):} Implementing standard algorithms and data structures from natural language specifications.
+ \item 			extbf{Bug Fixing (5 tasks):} Diagnosing and repairing intentionally introduced bugs in existing code.
+ \item 			extbf{Code Refactoring (4 tasks):} Restructuring existing code to improve design, performance, or maintainability without changing external behavior.
+ \item 			extbf{Test Writing (4 tasks):} Creating test suites for existing code components.
 \end{itemize}
 
 Each task type includes tasks at three difficulty levels---simple (S), medium (M), and hard (H)---operationalized through specific complexity criteria. Table~\ref{tab:task_definitions} presents the complete task taxonomy.
@@ -124,21 +124,21 @@ Each task type includes tasks at three difficulty levels---simple (S), medium (M
 \small
 \begin{tabular}{@{}p{0.8cm}p{2cm}p{5.5cm}p{1.8cm}@{}}
 \toprule
-	extbf{ID} & 	extbf{Type} & 	extbf{Description} & 	extbf{Lang.} \\
+			extbf{ID} & 			extbf{Type} & 			extbf{Description} & 			extbf{Lang.} \\
 \midrule
 S1 & Algorithm & Two-Sum problem using hash map O(n) & JS \\
 S2 & Algorithm & Valid parentheses using stack O(n) & JS \\
 S3 & Bug Fix & Fix infinite loop and integer overflow in binary search & JS \\
-S4 & Bug Fix & Fix React closure trap with 	exttt{useRef} & JSX \\
+S4 & Bug Fix & Fix React closure trap with 			exttt{useRef} & JSX \\
 S5 & Refactor & Decompose spaghetti code into 7 functions & JS \\
 S6 & Testing & Unit tests for 3 utility functions (26 cases) & JS \\
 \midrule
 M1 & Algorithm & LRU cache with doubly linked list + hash map O(1) & JS \\
 M2 & Algorithm & Topological sort using three-color DFS & JS \\
-M3 & Bug Fix & Fix concurrent map read/write panic with 	exttt{sync.RWMutex} & Go \\
+M3 & Bug Fix & Fix concurrent map read/write panic with 			exttt{sync.RWMutex} & Go \\
 M4 & Bug Fix & Fix SQL injection with parameterized queries + bcrypt & JS \\
 M5 & Refactor & Refactor conditionals into 6 strategy classes & JS \\
-M6 & Refactor & Convert synchronous I/O to async with 	exttt{fs.promises} & JS \\
+M6 & Refactor & Convert synchronous I/O to async with 			exttt{fs.promises} & JS \\
 M7 & Testing & Integration tests for REST API with supertest (18 cases) & JS \\
 M8 & Testing & Unit tests for database operations with Jest mocks (13 cases) & TS \\
 \midrule
@@ -154,11 +154,11 @@ H4 & Testing & Concurrency stress tests with race detection & Go \\
 
 Task difficulty was determined by a combination of factors:
 
-	extbf{Simple tasks} involved single-algorithm implementations requiring standard library usage, bugs with straightforward root causes (e.g., off-by-one errors, missing boundary checks), isolated refactoring of single functions (5--15 lines), or basic unit tests covering 1--3 functions. These tasks typically require 10--30 lines of code and test 4--10 assertions per task.
+			extbf{Simple tasks} involved single-algorithm implementations requiring standard library usage, bugs with straightforward root causes (e.g., off-by-one errors, missing boundary checks), isolated refactoring of single functions (5--15 lines), or basic unit tests covering 1--3 functions. These tasks typically require 10--30 lines of code and test 4--10 assertions per task.
 
-	extbf{Medium tasks} required compound data structures (e.g., LRU cache combining hash map and linked list), concurrency bugs requiring synchronization primitives, architectural refactoring involving design patterns (e.g., Strategy pattern), or integration-level testing (e.g., HTTP API testing). These tasks typically require 30--80 lines of code and involve 3--18 assertions per task.
+			extbf{Medium tasks} required compound data structures (e.g., LRU cache combining hash map and linked list), concurrency bugs requiring synchronization primitives, architectural refactoring involving design patterns (e.g., Strategy pattern), or integration-level testing (e.g., HTTP API testing). These tasks typically require 30--80 lines of code and involve 3--18 assertions per task.
 
-	extbf{Hard tasks} involved complex self-balancing tree algorithms (red-black tree with 6+ rotation cases), distributed system bugs requiring multi-component fixes (e.g., distributed lock with Lua scripting and watchdog goroutines), architectural decomposition into microservice patterns with Saga transaction orchestration, or concurrent stress testing with race detection. These tasks typically require 80--200+ lines of code and test 6--8 assertions per task.
+			extbf{Hard tasks} involved complex self-balancing tree algorithms (red-black tree with 6+ rotation cases), distributed system bugs requiring multi-component fixes (e.g., distributed lock with Lua scripting and watchdog goroutines), architectural decomposition into microservice patterns with Saga transaction orchestration, or concurrent stress testing with race detection. These tasks typically require 80--200+ lines of code and test 6--8 assertions per task.
 
 \subsection{Evaluation Metrics}
 
@@ -166,25 +166,25 @@ We employed a multi-dimensional evaluation framework with both objective and ana
 
 \subsubsection{Primary Metrics}
 \begin{itemize}[leftmargin=*]
- \item 	extbf{Task Pass Rate:} Binary indicator of whether the generated solution passes all acceptance criteria for the task.
- \item 	extbf{Test Assertion Pass Rate:} The proportion of individual test assertions that pass, providing fine-grained correctness assessment.
+ \item 			extbf{Task Pass Rate:} Binary indicator of whether the generated solution passes all acceptance criteria for the task.
+ \item 			extbf{Test Assertion Pass Rate:} The proportion of individual test assertions that pass, providing fine-grained correctness assessment.
 \end{itemize}
 
 \subsubsection{Secondary Analytical Dimensions}
 \begin{itemize}[leftmargin=*]
- \item 	extbf{Type Coverage:} Analysis of success rates across the four task categories.
- \item 	extbf{Difficulty Scaling:} Performance trajectory across simple, medium, and hard tasks.
- \item 	extbf{Language Robustness:} Consistency of code generation quality across JavaScript, TypeScript, Go, and JSX.
- \item 	extbf{Edge-Case Sensitivity:} Handling of boundary conditions, error states, and exceptional inputs.
+ \item 			extbf{Type Coverage:} Analysis of success rates across the four task categories.
+ \item 			extbf{Difficulty Scaling:} Performance trajectory across simple, medium, and hard tasks.
+ \item 			extbf{Language Robustness:} Consistency of code generation quality across JavaScript, TypeScript, Go, and JSX.
+ \item 			extbf{Edge-Case Sensitivity:} Handling of boundary conditions, error states, and exceptional inputs.
 \end{itemize}
 
 \subsection{Experimental Setup}
 
-The experiment was conducted using Claude Code, an AI-powered coding agent developed by Anthropic. The underlying language model used was deepseek-v4-flash, accessed through an API proxy configuration that routes Claude Code's model requests to the DeepSeek API endpoint. This configuration is achieved by setting the 	exttt{ANTHROPIC\_BASE\_URL} environment variable to point to a DeepSeek-compatible API endpoint, effectively substituting the default Claude model with deepseek-v4-flash while preserving Claude Code's agentic framework capabilities---including file system operations, code execution, and multi-turn interaction management. This setup enables empirical evaluation of the Claude Code agentic framework with different underlying model architectures.
+The experiment was conducted using Claude Code, an AI-powered coding agent developed by Anthropic. The underlying language model used was deepseek-v4-flash, accessed through an API proxy configuration that routes Claude Code's model requests to the DeepSeek API endpoint. This configuration is achieved by setting the 			exttt{ANTHROPIC\_BASE\_URL} environment variable to point to a DeepSeek-compatible API endpoint, effectively substituting the default Claude model with deepseek-v4-flash while preserving Claude Code's agentic framework capabilities---including file system operations, code execution, and multi-turn interaction management. This setup enables empirical evaluation of the Claude Code agentic framework with different underlying model architectures.
 
 \subsubsection{Model Configuration}
 
-The deepseek-v4-flash model~\cite{deepseek2026api} was accessed through the API proxy without explicit parameter tuning; default settings were used for both the agentic framework and the underlying model. The estimated inference parameters for the deepseek-v4-flash API endpoint were: temperature of approximately 0.7 (default value; not explicitly overridden), top-p of 1.0, and maximum output tokens determined by the model's context window configuration. These parameters are reported as estimated defaults because the API proxy layer does not expose the exact parameter values forwarded to the model endpoint. The Claude Code version was determined at runtime via 	exttt{claude --version} during each experiment execution.
+The deepseek-v4-flash model~\cite{deepseek2026api} was accessed through the API proxy without explicit parameter tuning; default settings were used for both the agentic framework and the underlying model. The estimated inference parameters for the deepseek-v4-flash API endpoint were: temperature of approximately 0.7 (default value; not explicitly overridden), top-p of 1.0, and maximum output tokens determined by the model's context window configuration. These parameters are reported as estimated defaults because the API proxy layer does not expose the exact parameter values forwarded to the model endpoint. The Claude Code version was determined at runtime via 			exttt{claude --version} during each experiment execution.
 
 \subsubsection{Interaction Protocol}
 
@@ -195,10 +195,10 @@ Multi-turn interaction was inherently enabled by the Claude Code agentic framewo
 The evaluation was performed as follows:
 
 \begin{itemize}[leftmargin=*]
- \item 	extbf{Execution Environment:} The coding agent was provided with each task's natural language specification as input, without example solutions or hints beyond the task description. No few-shot examples were provided.
- \item 	extbf{Task Execution:} For each task, the agent produced a solution in a single interaction session. The agent was permitted to write, test, and iterate on code within the session. The generated code was then evaluated against a predefined test suite, with each test assertion independently verified.
- \item 	extbf{Hardware and Software:} Experiments were conducted on a standard development workstation running Ubuntu 22.04 with an Intel i7 processor and 32 GB RAM. The Claude Code framework operated with default settings (no custom configuration files or environment overrides beyond the API proxy URL).
- \item 	extbf{Data Collection:} For each task, we recorded the task identifier, type, complexity level, pass/fail status, number of tests passed, total tests, programming language, duration in seconds, token consumption, number of interaction turns, and qualitative notes on the solution approach.
+ \item 			extbf{Execution Environment:} The coding agent was provided with each task's natural language specification as input, without example solutions or hints beyond the task description. No few-shot examples were provided.
+ \item 			extbf{Task Execution:} For each task, the agent produced a solution in a single interaction session. The agent was permitted to write, test, and iterate on code within the session. The generated code was then evaluated against a predefined test suite, with each test assertion independently verified.
+ \item 			extbf{Hardware and Software:} Experiments were conducted on a standard development workstation running Ubuntu 22.04 with an Intel i7 processor and 32 GB RAM. The Claude Code framework operated with default settings (no custom configuration files or environment overrides beyond the API proxy URL).
+ \item 			extbf{Data Collection:} For each task, we recorded the task identifier, type, complexity level, pass/fail status, number of tests passed, total tests, programming language, duration in seconds, token consumption, number of interaction turns, and qualitative notes on the solution approach.
 \end{itemize}
 
 \section{Results}
@@ -250,7 +250,7 @@ Within our small-scale benchmark, the Claude Code framework achieved a 100\% tas
 \small
 \begin{tabular}{@{}lccl@{}}
 \toprule
-	extbf{Metric} & 	extbf{Value} & 	extbf{\%} \\
+			extbf{Metric} & 			extbf{Value} & 			extbf{\%} \\
 \midrule
 Total tasks & 18 & --- \\
 Tasks passed & 18 & 100\% \\
@@ -272,7 +272,7 @@ To address RQ1, we analyzed performance across the four task categories. Table~\
 \small
 \begin{tabular}{@{}lcccc@{}}
 \toprule
-	extbf{Task Type} & 	extbf{Tasks} & 	extbf{Passed} & 	extbf{Tests} & 	extbf{Passed} \\
+			extbf{Task Type} & 			extbf{Tasks} & 			extbf{Passed} & 			extbf{Tests} & 			extbf{Passed} \\
 \midrule
 Algorithm & 5 & 5 (100\%) & 43 & 43 (100\%) \\
 Bug Fixing & 5 & 5 (100\%) & 28 & 28 (100\%) \\
@@ -303,7 +303,7 @@ To address RQ2, we examined performance scaling across difficulty levels. Table~
 \small
 \begin{tabular}{@{}lcccc@{}}
 \toprule
-	extbf{Difficulty} & 	extbf{Tasks} & 	extbf{Passed} & 	extbf{Tests} & 	extbf{Passed} \\
+			extbf{Difficulty} & 			extbf{Tasks} & 			extbf{Passed} & 			extbf{Tests} & 			extbf{Passed} \\
 \midrule
 Simple & 6 & 6 (100\%) & 64 & 64 (100\%) \\
 Medium & 8 & 8 (100\%) & 70 & 70 (100\%) \\
@@ -329,7 +329,7 @@ To address RQ3, we analyzed performance across the four programming languages in
 \small
 \begin{tabular}{@{}lcccc@{}}
 \toprule
-	extbf{Language} & 	extbf{Tasks} & 	extbf{Passed} & 	extbf{Tests} & 	extbf{Passed} \\
+			extbf{Language} & 			extbf{Tasks} & 			extbf{Passed} & 			extbf{Tests} & 			extbf{Passed} \\
 \midrule
 JavaScript & 12 & 12 (100\%) & 121 & 121 (100\%) \\
 TypeScript & 2 & 2 (100\%) & 20 & 20 (100\%) \\
@@ -345,10 +345,10 @@ The agent demonstrated proficiency across all four languages, each representing 
 
 Notable language-specific achievements include:
 \begin{itemize}[leftmargin=*]
- \item In 	extbf{JavaScript}, correct implementation of ES6 class syntax, Promises and async/await patterns, and proper use of 	exttt{Map}, 	exttt{Set}, and 	exttt{WeakMap} data structures.
- \item In 	extbf{TypeScript}, proper interface definitions, generic type constraints, and type-safe implementation of the Saga orchestration pattern.
- \item In 	extbf{Go}, correct use of 	exttt{sync.RWMutex} for read-write lock patterns, goroutine lifecycle management with 	exttt{sync.WaitGroup}, atomic operations with 	exttt{sync/atomic}, and channel-based communication patterns.
- \item In 	extbf{JSX}, correct implementation of React hooks (	exttt{useRef}, 	exttt{useState}, 	exttt{useEffect}) and proper handling of the JavaScript closure-in-loop idiom.
+ \item In 			extbf{JavaScript}, correct implementation of ES6 class syntax, Promises and async/await patterns, and proper use of 			exttt{Map}, 			exttt{Set}, and 			exttt{WeakMap} data structures.
+ \item In 			extbf{TypeScript}, proper interface definitions, generic type constraints, and type-safe implementation of the Saga orchestration pattern.
+ \item In 			extbf{Go}, correct use of 			exttt{sync.RWMutex} for read-write lock patterns, goroutine lifecycle management with 			exttt{sync.WaitGroup}, atomic operations with 			exttt{sync/atomic}, and channel-based communication patterns.
+ \item In 			extbf{JSX}, correct implementation of React hooks (			exttt{useRef}, 			exttt{useState}, 			exttt{useEffect}) and proper handling of the JavaScript closure-in-loop idiom.
 \end{itemize}
 
 \subsection{Qualitative Analysis of Solution Approaches}
@@ -361,7 +361,7 @@ For algorithmic tasks, the agent consistently selected appropriate data structur
 
 \subsubsection{Bug Diagnosis and Repair Strategy}
 
-In bug fixing tasks, the agent demonstrated structured diagnostic steps rather than superficial pattern matching. For the binary search bug (S3), the agent identified both the infinite loop (caused by 	exttt{mid} not being updated when 	exttt{arr[mid] < target}) and the integer overflow (caused by 	exttt{mid = (low + high) / 2} rather than 	exttt{mid = low + (high - low) / 2}). For the SQL injection vulnerability (M4), the agent replaced string concatenation with parameterized queries and implemented bcrypt-based password hashing, representing adoption of security best practices rather than minimal fixes.
+In bug fixing tasks, the agent demonstrated structured diagnostic steps rather than superficial pattern matching. For the binary search bug (S3), the agent identified both the infinite loop (caused by 			exttt{mid} not being updated when 			exttt{arr[mid] < target}) and the integer overflow (caused by 			exttt{mid = (low + high) / 2} rather than 			exttt{mid = low + (high - low) / 2}). For the SQL injection vulnerability (M4), the agent replaced string concatenation with parameterized queries and implemented bcrypt-based password hashing, representing adoption of security best practices rather than minimal fixes.
 
 \subsubsection{Design Quality in Refactoring}
 
@@ -389,7 +389,7 @@ Table~\ref{tab:variability} presents the results of this repeated-run analysis.
 \small
 \begin{tabular}{@{}lccccc@{}}
 \toprule
-	extbf{ID} & 	extbf{Type} & 	extbf{Difficulty} & 	extbf{Pass Rate} & 	extbf{Tests Mean} & 	extbf{Variance} \\
+			extbf{ID} & 			extbf{Type} & 			extbf{Difficulty} & 			extbf{Pass Rate} & 			extbf{Tests Mean} & 			extbf{Variance} \\
 \midrule
 S1 & Algorithm & Simple & 5/5 (100\%) & 7.0 & 0.00 \\
 S3 & Bug Fix & Simple & 5/5 (100\%) & 10.0 & 0.00 \\
@@ -406,11 +406,11 @@ The results demonstrate that the AI coding agent achieved 100\% task pass rates 
 \subsubsection{Three-Level Failure Analysis of H2}
 Analysis of the two failed H2 runs reveals three distinct layers of interaction between the agent-generated code and the test suite:
 
-		extbf{Layer 1 --- Semantic Correctness (Intact).} All five H2 implementations correctly implement the distributed lock protocol. Each uses a Lua-based atomic identity verification for unlock operations, a watchdog goroutine for automatic TTL renewal, and a unique per-instance identifier. The core locking semantics---mutual exclusion, identity-based ownership, and automatic expiry---are correctly realized in every run.
+				extbf{Layer 1 --- Semantic Correctness (Intact).} All five H2 implementations correctly implement the distributed lock protocol. Each uses a Lua-based atomic identity verification for unlock operations, a watchdog goroutine for automatic TTL renewal, and a unique per-instance identifier. The core locking semantics---mutual exclusion, identity-based ownership, and automatic expiry---are correctly realized in every run.
 
-		extbf{Layer 2 --- API Surface Incompatibility (Source of Failure).} The functional test suite (		exttt{lock\_test.go}) directly accesses the struct field 		exttt{lock2.value} in the identity verification test. Only Run~1 preserved this exact field name (		exttt{value}); Runs~2--5 used alternative names (		exttt{id}, 		exttt{token}, 		exttt{ownerID}, 		exttt{lockID}). While the alternative naming does not affect correctness, the field name mismatch causes a compilation error in 		exttt{TestLockIdentity}. This represents a \emph{semantic brittleness}: the agent correctly implements behavior but does not consistently preserve the exact API surface expected by the test suite, suggesting that agent evaluation test suites should prefer interface-based or behavioral verification over direct struct field access.
+				extbf{Layer 2 --- API Surface Incompatibility (Source of Failure).} The functional test suite (				exttt{lock\_test.go}) directly accesses the struct field 				exttt{lock2.value} in the identity verification test. Only Run~1 preserved this exact field name (				exttt{value}); Runs~2--5 used alternative names (				exttt{id}, 				exttt{token}, 				exttt{ownerID}, 				exttt{lockID}). While the alternative naming does not affect correctness, the field name mismatch causes a compilation error in 				exttt{TestLockIdentity}. This represents a \emph{semantic brittleness}: the agent correctly implements behavior but does not consistently preserve the exact API surface expected by the test suite, suggesting that agent evaluation test suites should prefer interface-based or behavioral verification over direct struct field access.
 
-		extbf{Layer 3 --- Concurrency and Timing Instability (Compounding Factor).} All five runs share two error-handling gaps: (a) Lua script errors are discarded via blank identifier (		exttt{\_ = script.Run(...)}), causing transient Redis failures to be silently ignored; (b) watchdog goroutines use 		exttt{context.Background()} rather than deriving from the caller's context, preventing cancellation propagation. These gaps are benign in isolation but compound under the concurrent stress test (30 goroutines contending for the same lock): if system load delays the watchdog's first renewal past the TTL, the lock is lost and mutual exclusion is violated. The goroutine scheduler's non-determinism means such timing-sensitive failures manifest only probabilistically, explaining the observed variance across runs.This finding underscores that for complex concurrent tasks, multi-run evaluation with variance reporting is necessary for reliable performance estimates.
+				extbf{Layer 3 --- Concurrency and Timing Instability (Compounding Factor).} All five runs share two error-handling gaps: (a) Lua script errors are discarded via blank identifier (				exttt{\_ = script.Run(...)}), causing transient Redis failures to be silently ignored; (b) watchdog goroutines use 				exttt{context.Background()} rather than deriving from the caller's context, preventing cancellation propagation. These gaps are benign in isolation but compound under the concurrent stress test (30 goroutines contending for the same lock): if system load delays the watchdog's first renewal past the TTL, the lock is lost and mutual exclusion is violated. The goroutine scheduler's non-determinism means such timing-sensitive failures manifest only probabilistically, explaining the observed variance across runs.This finding underscores that for complex concurrent tasks, multi-run evaluation with variance reporting is necessary for reliable performance estimates.
 
 We note one minor source of variability: the hard algorithm task H1 (red-black tree insertion) produced slightly different tree structures across runs, with heights ranging from 16 to 17 in the random insertion stress test (n=10000), while still maintaining valid red-black tree properties and passing all functional tests. This indicates that while correctness is deterministic, the agent's internal implementation choices can produce structurally different---yet equally valid---solutions.
 
@@ -435,11 +435,11 @@ An important caveat in interpreting these results is the potential for training 
 
 Our findings have several implications for software engineering practice:
 
-	extbf{Enhanced Developer Productivity:} The demonstrated capability across algorithm implementation, debugging, refactoring, and testing likely means AI coding agents can serve as effective productivity multipliers for routine and moderately complex development tasks. Developers can potentially delegate implementation work to agents while focusing on higher-level architectural and design decisions.
+			extbf{Enhanced Developer Productivity:} The demonstrated capability across algorithm implementation, debugging, refactoring, and testing likely means AI coding agents can serve as effective productivity multipliers for routine and moderately complex development tasks. Developers can potentially delegate implementation work to agents while focusing on higher-level architectural and design decisions.
 
-	extbf{Code Quality and Consistency:} The agent's correct application of design patterns (Strategy, Saga), security best practices (parameterized queries, bcrypt), and concurrency patterns (RWMutex, atomic operations, watchdog goroutines) indicates that AI coding agents can help maintain code quality standards, particularly in areas where human developers may have varying expertise.
+			extbf{Code Quality and Consistency:} The agent's correct application of design patterns (Strategy, Saga), security best practices (parameterized queries, bcrypt), and concurrency patterns (RWMutex, atomic operations, watchdog goroutines) indicates that AI coding agents can help maintain code quality standards, particularly in areas where human developers may have varying expertise.
 
-	extbf{Testing Automation:} The agent's comprehensive test generation capabilities, including mock-based isolation testing and integration test suites, suggest significant potential for automated test coverage improvement in software projects, addressing a persistent challenge in software quality assurance.
+			extbf{Testing Automation:} The agent's comprehensive test generation capabilities, including mock-based isolation testing and integration test suites, suggest significant potential for automated test coverage improvement in software projects, addressing a persistent challenge in software quality assurance.
 
 However, we caution against overinterpreting these results. Our benchmark, while systematic, does not capture several dimensions of real-world software development, including long-term code maintenance, evolving requirements, team collaboration dynamics, and domain-specific knowledge that may not be well-represented in training data.
 
@@ -449,25 +449,25 @@ We identify several threats to the validity of our findings:
 
 \subsubsection{Internal Validity}
 
-	extbf{Single-run evaluation:} The primary results in this study are based on a single execution per task. Our variability analysis (Section~\ref{sec:variability}) on a representative subset of six tasks demonstrated zero variance in pass rates across five independent runs, suggesting that the pass/fail outcome is stable for well-specified programming tasks with test suites. However, AI models exhibit inherent stochasticity in their outputs, and our analysis does not fully eliminate the risk of performance variation on tasks not covered in the subset (12 of 18 tasks were not subjected to repeated runs). Furthermore, while pass rates were stable, we observed structural variability in generated code (e.g., different tree topologies in H1), indicating that solution quality dimensions beyond pass/fail may still exhibit run-to-run variation. Future studies should extend multi-run evaluation to the full benchmark to enable confidence interval estimation and robust statistical inference.
+			extbf{Single-run evaluation:} The primary results in this study are based on a single execution per task. Our variability analysis (Section~\ref{sec:variability}) on a representative subset of six tasks demonstrated zero variance in pass rates across five independent runs, suggesting that the pass/fail outcome is stable for well-specified programming tasks with test suites. However, AI models exhibit inherent stochasticity in their outputs, and our analysis does not fully eliminate the risk of performance variation on tasks not covered in the subset (12 of 18 tasks were not subjected to repeated runs). Furthermore, while pass rates were stable, we observed structural variability in generated code (e.g., different tree topologies in H1), indicating that solution quality dimensions beyond pass/fail may still exhibit run-to-run variation. Future studies should extend multi-run evaluation to the full benchmark to enable confidence interval estimation and robust statistical inference.
 
-	extbf{Absence of human baseline:} Without a controlled comparison against human performance on identical tasks, we cannot benchmark the agent's performance against human baselines. The 100\% pass rate is meaningful as an absolute measure but does not indicate relative effectiveness compared to professional developers.
+			extbf{Absence of human baseline:} Without a controlled comparison against human performance on identical tasks, we cannot benchmark the agent's performance against human baselines. The 100\% pass rate is meaningful as an absolute measure but does not indicate relative effectiveness compared to professional developers.
 
-	extbf{Task selection bias:} The 18 tasks were designed by the researchers and may not represent the full distribution of challenges in industrial software development. There is a risk that the selected tasks align particularly well with the agent's capabilities, leading to inflated performance estimates.
+			extbf{Task selection bias:} The 18 tasks were designed by the researchers and may not represent the full distribution of challenges in industrial software development. There is a risk that the selected tasks align particularly well with the agent's capabilities, leading to inflated performance estimates.
 
 \subsubsection{External Validity}
 
-	extbf{Model dependency:} Our results are specific to the Claude Code framework with deepseek-v4-flash. Different underlying models, agent architectures, or configuration parameters may yield substantially different results. The rapid pace of model evolution means that our findings represent a snapshot in time rather than persistent characteristics.
+			extbf{Model dependency:} Our results are specific to the Claude Code framework with deepseek-v4-flash. Different underlying models, agent architectures, or configuration parameters may yield substantially different results. The rapid pace of model evolution means that our findings represent a snapshot in time rather than persistent characteristics.
 
-	extbf{Task scope limitation:} Real-world software development involves activities beyond code production, including requirements analysis, system design, cross-team coordination, code review participation, and operational incident response. Our benchmark does not evaluate these dimensions.
+			extbf{Task scope limitation:} Real-world software development involves activities beyond code production, including requirements analysis, system design, cross-team coordination, code review participation, and operational incident response. Our benchmark does not evaluate these dimensions.
 
-	extbf{Scale and complexity:} The tasks in our benchmark, while including hard tasks like red-black tree implementation and microservice decomposition, are relatively small in scope compared to industrial-scale software systems. Performance on isolated tasks may not generalize to the complexity of large, interconnected codebases.
+			extbf{Scale and complexity:} The tasks in our benchmark, while including hard tasks like red-black tree implementation and microservice decomposition, are relatively small in scope compared to industrial-scale software systems. Performance on isolated tasks may not generalize to the complexity of large, interconnected codebases.
 
 \subsubsection{Construct Validity}
 
-	extbf{Test suite adequacy:} The correctness of solutions was assessed through predefined test suites. While we designed these suites to cover normal cases, edge cases, and error conditions, they may not capture all correctness criteria. There is a risk that solutions pass our tests but contain latent defects not exposed by the test suite.
+			extbf{Test suite adequacy:} The correctness of solutions was assessed through predefined test suites. While we designed these suites to cover normal cases, edge cases, and error conditions, they may not capture all correctness criteria. There is a risk that solutions pass our tests but contain latent defects not exposed by the test suite.
 
-	extbf{Pass rate as a metric:} Binary task pass rates, while objective, do not capture partial correctness or the quality of reasoning. Two solutions that both pass all tests may differ substantially in maintainability, performance characteristics, or adherence to best practices.
+			extbf{Pass rate as a metric:} Binary task pass rates, while objective, do not capture partial correctness or the quality of reasoning. Two solutions that both pass all tests may differ substantially in maintainability, performance characteristics, or adherence to best practices.
 
 
 \subsection{Human Baseline Comparison}
@@ -479,15 +479,15 @@ To provide external context for interpreting our results, we reference the Human
 
 Building on the threats to validity, we enumerate specific limitations that should be addressed in future work:
 
-	extbf{Statistical replication:} Our variability analysis (Section~\ref{sec:variability}) with five runs per task on a representative subset demonstrated zero variance in pass rates, indicating that single-run evaluations can be reliable for well-specified programming tasks with test suites. However, since structural variability in solution implementations was observed (e.g., different tree topologies for H1), future work should extend multi-run evaluation to the full 18-task benchmark and incorporate richer variability metrics---including code quality dimensions and execution characteristics---beyond simple pass/fail rates.
+			extbf{Statistical replication:} Our variability analysis (Section~\ref{sec:variability}) with five runs per task on a representative subset demonstrated zero variance in pass rates, indicating that single-run evaluations can be reliable for well-specified programming tasks with test suites. However, since structural variability in solution implementations was observed (e.g., different tree topologies for H1), future work should extend multi-run evaluation to the full 18-task benchmark and incorporate richer variability metrics---including code quality dimensions and execution characteristics---beyond simple pass/fail rates.
 
-	extbf{Human comparative studies:} Controlled experiments comparing AI coding agents against human developers on identical task sets would provide crucial calibration for interpreting automated performance. Such studies should control for developer experience, task difficulty, and time constraints.
+			extbf{Human comparative studies:} Controlled experiments comparing AI coding agents against human developers on identical task sets would provide crucial calibration for interpreting automated performance. Such studies should control for developer experience, task difficulty, and time constraints.
 
-	extbf{Cross-model comparison:} Systematic comparisons across different coding agents and underlying models would help disentangle the contributions of the agentic framework from the base model capabilities, and identify architecture-specific strengths and weaknesses.
+			extbf{Cross-model comparison:} Systematic comparisons across different coding agents and underlying models would help disentangle the contributions of the agentic framework from the base model capabilities, and identify architecture-specific strengths and weaknesses.
 
-	extbf{Longitudinal evaluation:} As AI coding agents evolve rapidly, longitudinal studies tracking performance changes over time would provide insights into the trajectory of capability improvement and help identify saturation effects.
+			extbf{Longitudinal evaluation:} As AI coding agents evolve rapidly, longitudinal studies tracking performance changes over time would provide insights into the trajectory of capability improvement and help identify saturation effects.
 
-	extbf{Industrial case studies:} Deploying AI coding agents in real development teams and measuring productivity, code quality, and developer satisfaction at scale would provide ecologically valid evidence complementing controlled experiments.
+			extbf{Industrial case studies:} Deploying AI coding agents in real development teams and measuring productivity, code quality, and developer satisfaction at scale would provide ecologically valid evidence complementing controlled experiments.
 
 \section{Related Work}
 \label{sec:related}
