@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.5.27)  29 MAY 2026 01:28
+This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.5.27)  29 MAY 2026 01:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -754,20 +754,17 @@ Overfull \hbox (15.62704pt too wide) in paragraph at lines 251--262
  [][] 
  []
 
-
+[3]
 Overfull \hbox (40.01707pt too wide) in paragraph at lines 273--285
  [][] 
  []
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[3]
+[4]
 Overfull \hbox (34.16707pt too wide) in paragraph at lines 304--315
  [][] 
  []
 
-[4]
+
 Overfull \hbox (35.45407pt too wide) in paragraph at lines 330--342
  [][] 
  []
@@ -786,9 +783,6 @@ Underfull \hbox (badness 3579) in paragraph at lines 344--345
 Overfull \hbox (122.04611pt too wide) in paragraph at lines 390--402
  [][] 
  []
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
 
 [6]
 Underfull \hbox (badness 8132) in paragraph at lines 419--420
@@ -886,6 +880,9 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 
 LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
 Package rerunfilecheck Info: File `manuscript.out' has not changed.
 (rerunfilecheck)             Checksum: A58BD5FDF132F6428614C20D487C9EAF;7855.
