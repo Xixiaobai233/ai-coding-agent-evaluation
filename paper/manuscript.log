@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.5.27)  28 MAY 2026 23:36
+This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.5.27)  28 MAY 2026 23:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -706,11 +706,28 @@ Underfull \hbox (badness 1565) in paragraph at lines 157--158
  []
 
 [2]
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 187.
+
+
+LaTeX Warning: Citation `deepseek2026api' on page 3 undefined on input line 187
+.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 187--188
+ \TU/ptm/m/sc/10 1) Model Configuration: [][][] The deepseek-v4-flash
+ []
+
+
+Underfull \hbox (badness 2042) in paragraph at lines 187--188
+\TU/ptm/m/sc/10 version was determined at runtime via extttclaude
+ []
+
 File: figures/fig1_success_rate.png Graphic file (type bmp)
 <figures/fig1_success_rate.png>
 File: figures/fig2_time_by_tasktype.png Graphic file (type bmp)
 <figures/fig2_time_by_tasktype.png>
-
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
@@ -792,14 +809,17 @@ L3 programming layer <2025-12-24>
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
+
+LaTeX Warning: There were undefined references.
+
 Package rerunfilecheck Info: File `manuscript.out' has not changed.
 (rerunfilecheck)             Checksum: A58BD5FDF132F6428614C20D487C9EAF;7855.
  ) 
 Here is how much of TeX's memory you used:
- 14346 strings out of 402987
- 226136 string characters out of 5448524
+ 14347 strings out of 402987
+ 226153 string characters out of 5448524
  683650 words of memory out of 5000000
- 42893 multiletter control sequences out of 15000+600000
+ 42894 multiletter control sequences out of 15000+600000
  632962 words of font info for 71 fonts, out of 8000000 for 9000
  1351 hyphenation exceptions out of 8191
  72i,10n,79p,1351b,458s stack positions out of 10000i,1000n,20000p,200000b,200000s
