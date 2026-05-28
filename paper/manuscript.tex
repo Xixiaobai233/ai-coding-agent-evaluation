@@ -69,13 +69,13 @@ AI coding agents, large language models, empirical software engineering, automat
 
 \section{Introduction}
 
-\subsection{Background and Motivation}
+Current evaluations of AI coding agents predominantly rely on single-run pass/fail outcomes on benchmark tasks~\cite{chen2021evaluating, austin2021program, jimenez2023swebench}. A task is presented, the agent produces a solution, and a test suite determines success or failure. This binary outcome serves as the primary metric for comparing models and tracking progress.
 
-Large language models (LLMs) capable of generating, understanding, and manipulating source code have fundamentally changed software development practices. From early code completion tools~\cite{hindle2012naturalness} to contemporary AI-powered coding agents, the trajectory of automated programming has accelerated dramatically in recent years. Modern AI coding agents represent a significant evolution beyond simple code completion: they can interpret natural language requirements, generate complete implementations, diagnose and fix bugs, restructure existing codebases, and write test suites autonomously~\cite{chen2021evaluating, li2023starcoder, roziere2023code}.
+However, reliability is not a binary property. An AI coding agent may generate semantically correct code that nevertheless fails due to interface mismatches---struct field names, function signatures, or type definitions that differ from what the test suite expects. Even when code compiles and passes all tests in one run, it may behave inconsistently across repeated executions under identical conditions, particularly for tasks involving concurrency or timing-dependent logic. These dimensions of reliability are invisible to single-run pass/fail metrics.
 
-AI-assisted programming can reduce development time measurably. Studies have shown that AI-assisted programming can reduce development time by 35--55\% for certain tasks~\cite{peng2023impact, vaithilingam2022expectation}, and that professional developers increasingly rely on these tools for routine coding activities~\cite{ziegler2022productivity}. However, the empirical evaluation of AI coding agents faces several methodological challenges. Most existing evaluations focus on isolated code generation benchmarks~\cite{austin2021program, hendrycks2021measuring} or specific tasks within narrow domains~\cite{li2023starcoder, fried2022incoder}, leaving questions about generalizability across diverse software engineering activities.
+In this study, we repeatedly evaluated an AI coding agent (Claude Code with deepseek-v4-flash) on 50 software development tasks with 30 repeated runs, totaling over 400 test assertions. Our central observation is that while most tasks exhibit stable pass/fail outcomes across runs, a non-trivial subset---particularly those involving concurrent or distributed systems logic---shows substantial variability. One task (H2, a distributed lock deadlock fix) passed in single-run evaluation but succeeded in only 3 of 5 repeated attempts, despite every implementation being semantically correct. The failures arose from interface incompatibility (struct field naming mismatches) and temporal instability (race conditions).
 
-Furthermore, the rapid evolution of underlying models, from GPT-based architectures~\cite{brown2020language} to specialized code models like Codex~\cite{chen2021evaluating} and open-source alternatives~\cite{roziere2023code, li2023starcoder}, necessitates continuous empirical reassessment. The integration of tool-use abilities and multi-turn interaction patterns in modern coding agents demands evaluation frameworks that capture both the breadth and depth of real-world software development.
+To account for these observations, we propose a three-layer analysis framework that distinguishes (L1) semantic correctness, (L2) interface compatibility, and (L3) temporal stability. We further introduce a Variance Index (VI) that quantifies run-to-run reliability across repeated executions. These tools provide a more complete picture of agent reliability than single-run pass rates alone.
 
 \subsection{Research Questions and Contributions}
 
@@ -91,11 +91,9 @@ This study addresses the following research questions:
 The primary contributions of this paper are:
 
 \begin{enumerate}
- \item A systematically designed benchmark of 18 core software development tasks (extended to 50) spanning four task types and three difficulty levels, implementing a balanced evaluation framework for AI coding agents.
- \item A comprehensive empirical evaluation of Claude Code with deepseek-v4-flash, achieving 100\% task pass rate and 100\% test assertion pass rate across 162 tests in four programming languages in single-run evaluation, complemented by a variability analysis across 30 repeated runs.
- \item A detailed analysis of the agent's performance characteristics across different task categories, difficulty levels, and programming languages, identifying strengths and patterns in automated code generation.
- \item A three-layer analysis framework (semantic correctness, interface compatibility, temporal stability) for understanding AI code reliability beyond single-run pass/fail, with a case study demonstrating all three layers.
- \item A variance index for quantifying run-to-run reliability, supported by empirical data from 30 repeated runs.
+ \item A three-layer analysis framework for characterizing AI coding agent failures along semantic (L1), interface (L2), and temporal (L3) dimensions, capturing reliability aspects that single-run pass/fail metrics miss.
+ \item A Variance Index (VI) that quantifies run-to-run reliability across repeated executions, complementing traditional pass-rate reporting.
+ \item An empirical study of 50 tasks with 414 test assertions and 30 repeated runs, demonstrating that single-run evaluations can overestimate reliability for concurrent and distributed systems tasks.
 \end{enumerate}
 
 \subsection{Paper Organization}
