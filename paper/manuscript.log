@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.5.27)  29 MAY 2026 01:56
+This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.5.27)  29 MAY 2026 01:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -677,23 +677,23 @@ LaTeX Font Warning: Font shape `TU/ptm/m/sc' undefined
 
 
 ]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 111
+LaTeX Font Info:    Trying to load font information for U+msa on input line 112
 .
  (C:\Users\24530\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 111
+LaTeX Font Info:    Trying to load font information for U+msb on input line 112
 .
 
 (C:\Users\24530\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (8.19772pt too wide) in paragraph at lines 127--127
+Overfull \hbox (8.19772pt too wide) in paragraph at lines 128--128
 []|\TU/ptm/bx/it/9 extbfID| 
  []
 
 
-Overfull \hbox (71.37297pt too wide) in paragraph at lines 125--151
+Overfull \hbox (71.37297pt too wide) in paragraph at lines 126--152
  [][] 
  []
 
@@ -701,7 +701,7 @@ Overfull \hbox (71.37297pt too wide) in paragraph at lines 125--151
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Underfull \hbox (badness 1565) in paragraph at lines 157--158
+Underfull \hbox (badness 1565) in paragraph at lines 158--159
 \TU/ptm/m/sc/10 tations requiring standard library usage, bugs with
  []
 
@@ -709,14 +709,14 @@ Underfull \hbox (badness 1565) in paragraph at lines 157--158
 Underfull \vbox (badness 1509) has occurred while \output is active []
 
  [2]
-Underfull \hbox (badness 7613) in paragraph at lines 181--181
+Underfull \hbox (badness 7613) in paragraph at lines 182--182
  \TU/ptm/m/sc/10 D. A Three-Layer Perspective for Analyzing AI-
  []
 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.196 \[VI = ^^L
+l.197 \[VI = ^^L
                 rac{1}{n}\sum_{i=1}^{n}(x_i - ^^Har{x})^2\]
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -724,7 +724,7 @@ you left one out. Proceed, with fingers crossed.
 ! Display math should end with $$.
 <to be read again> 
                    \tex_par:D 
-l.196 \[VI = ^^L
+l.197 \[VI = ^^L
                 rac{1}{n}\sum_{i=1}^{n}(x_i - ^^Har{x})^2\]
 The `$' that I just saw supposedly matches a previous `$$'.
 So I shall assume that you typed `$$' both times.
@@ -732,13 +732,13 @@ So I shall assume that you typed `$$' both times.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.196 \[VI = ^^Lrac{1}{n}\sum
+l.197 \[VI = ^^Lrac{1}{n}\sum
                              _{i=1}^{n}(x_i - ^^Har{x})^2\]
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Text line contains an invalid character.
-l.196 \[VI = ^^Lrac{1}{n}\sum_{i=1}^{n}(x_i - ^^H
+l.197 \[VI = ^^Lrac{1}{n}\sum_{i=1}^{n}(x_i - ^^H
                                                  ar{x})^2\]
 A funny symbol that I can't read has just been input.
 Continue, and I'll forget that it ever happened.
@@ -746,7 +746,7 @@ Continue, and I'll forget that it ever happened.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.196 ...c{1}{n}\sum_{i=1}^{n}(x_i - ^^Har{x})^2\]
+l.197 ...c{1}{n}\sum_{i=1}^{n}(x_i - ^^Har{x})^2\]
                                                   
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -755,26 +755,26 @@ really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
 ! Text line contains an invalid character.
-l.197 ...e tests passed in the $i$-th run and $^^H
+l.198 ...e tests passed in the $i$-th run and $^^H
                                                   ar{x}$ is the mean. A low ...
 A funny symbol that I can't read has just been input.
 Continue, and I'll forget that it ever happened.
 
 
 LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/bx/n' instead on input line 205.
+(Font)              using `TU/ptm/bx/n' instead on input line 206.
 
 
-LaTeX Warning: Citation `deepseek2026api' on page 3 undefined on input line 205
+LaTeX Warning: Citation `deepseek2026api' on page 3 undefined on input line 206
 .
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 205--206
+Underfull \hbox (badness 10000) in paragraph at lines 206--207
  \TU/ptm/m/sc/10 1) Model Configuration: [][][] The deepseek-v4-flash
  []
 
 
-Underfull \hbox (badness 2042) in paragraph at lines 205--206
+Underfull \hbox (badness 2042) in paragraph at lines 206--207
 \TU/ptm/m/sc/10 version was determined at runtime via extttclaude
  []
 
@@ -803,22 +803,22 @@ File: figures/fig5_turns_by_tasktype.png Graphic file (type bmp)
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Overfull \hbox (17.67906pt too wide) in paragraph at lines 269--280
+Overfull \hbox (17.67906pt too wide) in paragraph at lines 270--281
  [][] 
  []
 
 
-Overfull \hbox (40.01707pt too wide) in paragraph at lines 291--303
+Overfull \hbox (40.01707pt too wide) in paragraph at lines 292--304
  [][] 
  []
 
 [4]
-Overfull \hbox (34.16707pt too wide) in paragraph at lines 322--333
+Overfull \hbox (34.16707pt too wide) in paragraph at lines 323--334
  [][] 
  []
 
 
-Overfull \hbox (35.45407pt too wide) in paragraph at lines 348--360
+Overfull \hbox (35.45407pt too wide) in paragraph at lines 349--361
  [][] 
  []
 
@@ -826,42 +826,42 @@ Overfull \hbox (35.45407pt too wide) in paragraph at lines 348--360
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Underfull \hbox (badness 4582) in paragraph at lines 362--363
+Underfull \hbox (badness 4582) in paragraph at lines 363--364
 \TU/ptm/m/sc/10 languages, each representing different programming
  []
 
 
-Underfull \hbox (badness 3579) in paragraph at lines 362--363
+Underfull \hbox (badness 3579) in paragraph at lines 363--364
 \TU/ptm/m/sc/10 paradigms: JavaScript (prototype-based, dynamically
  []
 
 [5]
-Overfull \hbox (122.04611pt too wide) in paragraph at lines 408--420
+Overfull \hbox (122.04611pt too wide) in paragraph at lines 409--421
  [][] 
  []
 
 [6]
-Underfull \hbox (badness 8132) in paragraph at lines 437--438
+Underfull \hbox (badness 8132) in paragraph at lines 438--439
 []\TU/ptm/m/sc/10 The complete experimental data, including all
  []
 
 
-Underfull \hbox (badness 1796) in paragraph at lines 437--438
+Underfull \hbox (badness 1796) in paragraph at lines 438--439
 \TU/ptm/m/sc/10 18 core task specifications and 32 extended tasks,
  []
 
 
-Underfull \hbox (badness 6396) in paragraph at lines 437--438
+Underfull \hbox (badness 6396) in paragraph at lines 438--439
 \TU/ptm/m/sc/10 generated code, and 30 repeated-run records, is
  []
 
 
-Underfull \hbox (badness 3769) in paragraph at lines 437--438
+Underfull \hbox (badness 3769) in paragraph at lines 438--439
 \TU/ptm/m/sc/10 available in the supplementary materials (GitHub:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 437--438
+Underfull \hbox (badness 10000) in paragraph at lines 438--439
 \TU/ptm/m/sc/10 https://github.com/Xiaobai233/ai-coding-agent-
  []
 
@@ -869,7 +869,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 437--438
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.476 ...onfiguration (Claude Code with ANTHROPIC_
+l.477 ...onfiguration (Claude Code with ANTHROPIC_
                                                   BASE_URL redirected to a D...
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -877,34 +877,34 @@ you left one out. Proceed, with fingers crossed.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.477 
+l.478 
       
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 476--477
+Underfull \hbox (badness 10000) in paragraph at lines 477--478
 []\TU/ptm/m/sc/10 extbfReproducibility: The experimental setup
  []
 
 
-Underfull \hbox (badness 3428) in paragraph at lines 476--477
+Underfull \hbox (badness 3428) in paragraph at lines 477--478
 \TU/ptm/m/sc/10 described in this paper relies on a non-standard
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 476--477
+Underfull \hbox (badness 10000) in paragraph at lines 477--478
 \TU/ptm/m/sc/10 API proxy configuration (Claude Code with
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 476--477
+Underfull \hbox (badness 10000) in paragraph at lines 477--478
 \TU/ptm/m/sc/10 ANTHROPIC$[]\OML/cmm/m/it/10 ASE[]RLredirectedtoaDeepSeek \OMS/
 cmsy/m/n/10 ^^@
  []
 
 
-Overfull \hbox (1012.86017pt too wide) in paragraph at lines 476--477
+Overfull \hbox (1012.86017pt too wide) in paragraph at lines 477--478
 \OML/cmm/m/it/10 compatibleendpoint\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 :Completer
 eproducibilityrequiresaccesstothesameAPIendpoint; modelversion; andconfiguratio
 nparameters; whichmaynotbepubliclyavailable:Wehavedisclosedallconfigurationdeta
@@ -938,22 +938,13 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package rerunfilecheck Warning: File `manuscript.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `manuscript.out':
-(rerunfilecheck)             Before: 34D7B2EB20932FA6AA2EE5D688AD42DA;8161
-(rerunfilecheck)             After:  A992D090405B62730453E8E8D0757BD7;8216.
+Package rerunfilecheck Info: File `manuscript.out' has not changed.
+(rerunfilecheck)             Checksum: A992D090405B62730453E8E8D0757BD7;8216.
  ) 
 Here is how much of TeX's memory you used:
  14350 strings out of 402987
  226232 string characters out of 5448524
- 683048 words of memory out of 5000000
+ 683114 words of memory out of 5000000
  42897 multiletter control sequences out of 15000+600000
  632962 words of font info for 71 fonts, out of 8000000 for 9000
  1351 hyphenation exceptions out of 8191
