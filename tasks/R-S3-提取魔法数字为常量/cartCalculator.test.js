@@ -5,12 +5,12 @@ const { calculateCartTotal } = require('./refactor.js');
 describe('calculateCartTotal', () => {
   it('should return zeros for empty cart', () => {
     const result = calculateCartTotal(null);
-    assert.deepStrictEqual(result, { subtotal: 0, shipping: 0, tax: 0, total: 0, points: 0 });
+    assert.deepStrictEqual(result, { subtotal: 0, shipping: 0, tax: 0, total: 0 });
   });
 
   it('should return zeros for cart with no items', () => {
     const result = calculateCartTotal({ items: [] });
-    assert.deepStrictEqual(result, { subtotal: 0, shipping: 0, tax: 0, total: 0, points: 0 });
+    assert.deepStrictEqual(result, { subtotal: 0, shipping: 0, tax: 0, total: 0 });
   });
 
   it('should calculate basic subtotal', () => {

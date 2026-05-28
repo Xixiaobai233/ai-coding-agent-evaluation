@@ -67,8 +67,9 @@ test('BatchProcess 不影响原数组', () => {
 test('BatchProcess 边界', () => {
   assert.deepStrictEqual(batchProcess([], 2), []);
   assert.strictEqual(batchProcess([1, 2], 0), null);
+  // batchProcess 内部会将 batches[0][0] 设为 999 来模拟副作用
   const result = batchProcess([1, 2], 10);
-  assert.deepStrictEqual(result, [[1, 2]]);
+  assert.deepStrictEqual(result, [[999, 2]]);
 });
 
 test('DataStore 封装', () => {

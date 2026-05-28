@@ -19,6 +19,8 @@ class TestDecorators:
         assert "[timer] dummy:" in captured.out
 
     def test_log_call_decorator(self, caplog):
+        import logging
+        caplog.set_level(logging.INFO)
         @log_call
         def add(a, b):
             return a + b

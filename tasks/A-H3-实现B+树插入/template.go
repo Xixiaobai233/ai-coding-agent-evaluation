@@ -84,45 +84,57 @@ func (tree *BPlusTree) splitChild(parent *BPlusTreeNode, index int) {
 	child := parent.children[index]
 	mid := order / 2
 
-	// 创建新节点
-	newNode := &BPlusTreeNode{
-		isLeaf: child.isLeaf,
-		keys:   make([]int, order-mid-1),
-		parent: parent,
-	}
-	copy(newNode.keys, child.keys[mid+1:])
+	if child.isLeaf {
+		// Leaf split: copy mid key up, keep all keys in leaves
+		newNode := &BPlusTreeNode{
+			isLeaf: true,
+			parent: parent,
+		}
+		newNode.keys = make([]int, len(child.keys)-mid)
+		copy(newNode.keys, child.keys[mid:])
+		child.keys = child.keys[:mid]
 
-	if !child.isLeaf {
-		newNode.children = make([]*BPlusTreeNode, order-mid-1)
+		newNode.next = child.next
+		child.next = newNode
+
+		midKey := newNode.keys[0]
+
+		parent.keys = append(parent.keys, 0)
+		copy(parent.keys[index+1:], parent.keys[index:])
+		parent.keys[index] = midKey
+
+		parent.children = append(parent.children, nil)
+		copy(parent.children[index+2:], parent.children[index+1:])
+		parent.children[index+1] = newNode
+	} else {
+		// Internal split: move mid key up
+		midKey := child.keys[mid]
+
+		newNode := &BPlusTreeNode{
+			isLeaf: false,
+			parent: parent,
+		}
+		newNode.keys = make([]int, len(child.keys)-mid-1)
+		copy(newNode.keys, child.keys[mid+1:])
+		child.keys = child.keys[:mid]
+
+		newNode.children = make([]*BPlusTreeNode, len(child.children)-mid-1)
 		copy(newNode.children, child.children[mid+1:])
-		for i := mid + 1; i < order; i++ {
-			if child.children[i] != nil {
-				child.children[i].parent = newNode
+		for i := range newNode.children {
+			if newNode.children[i] != nil {
+				newNode.children[i].parent = newNode
 			}
 		}
-	} else {
-		newNode.next = child.next
-		newNode.isLeaf = true
-		child.next = newNode
-	}
-
-	// 缩减原节点
-	child.keys = child.keys[:mid]
-
-	if !child.isLeaf {
 		child.children = child.children[:mid+1]
+
+		parent.keys = append(parent.keys, 0)
+		copy(parent.keys[index+1:], parent.keys[index:])
+		parent.keys[index] = midKey
+
+		parent.children = append(parent.children, nil)
+		copy(parent.children[index+2:], parent.children[index+1:])
+		parent.children[index+1] = newNode
 	}
-
-	// 将中间关键字提升到父节点
-	midKey := child.keys[mid]
-
-	parent.keys = append(parent.keys, 0)
-	copy(parent.keys[index+1:], parent.keys[index:])
-	parent.keys[index] = midKey
-
-	parent.children = append(parent.children, nil)
-	copy(parent.children[index+2:], parent.children[index+1:])
-	parent.children[index+1] = newNode
 }
 
 // Search 搜索关键字是否存在

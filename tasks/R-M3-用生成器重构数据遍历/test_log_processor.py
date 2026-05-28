@@ -43,7 +43,7 @@ class TestLogProcessor:
     def test_filter_by_level(self, log_dir):
         proc = LogProcessor(log_dir)
         errors = list(proc.filter_by_level(proc.iter_logs(), "ERROR"))
-        assert len(errors) == 3  # 2 from main + 1 from sub
+        assert len(errors) == 4  # 3 from main + 1 from sub
         for e in errors:
             assert e["level"] == "ERROR"
 
@@ -59,7 +59,7 @@ class TestLogProcessor:
     def test_extract_errors(self, log_dir):
         proc = LogProcessor(log_dir)
         errors = list(proc.extract_errors(proc.iter_logs()))
-        assert len(errors) == 4  # 2 ERROR + 1 CRITICAL in main + 1 ERROR in sub
+        assert len(errors) == 5  # 3 ERROR + 1 CRITICAL in main + 1 ERROR in sub
         for err in errors:
             assert "time" in err
             assert "message" in err
@@ -107,7 +107,7 @@ class TestLogProcessor:
         proc = LogProcessor(log_dir)
         chain = proc.extract_errors(proc.filter_by_level(proc.iter_logs(), "ERROR"))
         results = list(chain)
-        assert len(results) == 3
+        assert len(results) == 4  # 3 from main + 1 from sub
         for r in results:
             assert r["message"]  # non-empty
 

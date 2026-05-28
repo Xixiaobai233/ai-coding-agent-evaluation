@@ -24,8 +24,8 @@ func TestDijkstra(t *testing.T) {
 			expect: []int{0, 3, 1, 4},
 		},
 		{
-			name:   "单个节点",
-			graph:  [][][]int{{{}}},
+			name:   "single node",
+			graph:  [][][]int{{}},
 			start:  0,
 			expect: []int{0},
 		},
