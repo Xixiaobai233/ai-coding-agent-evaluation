@@ -66,7 +66,7 @@
 
 \textbf{Method:} We evaluated Claude Code with deepseek-v4-flash on 50 software development tasks (18 core, 32 extended) totaling 414 test assertions, with 6 representative tasks repeated 5 times each. The three-layer model was applied to analyze observed failures.
 
-\textbf{Results:} The agent achieved 100\% pass rates in single-run evaluation. However, repeated runs revealed that one of six tasks---a distributed lock bug fix---succeeded in only 3 of 5 attempts (VI = 2.56), despite every implementation being semantically correct. Failures arose from interface incompatibility and temporal instability.
+\textbf{Results:} The agent achieved 100\% pass rates in single-run evaluation. However, repeated runs revealed that one of six tasks---a distributed lock bug fix---succeeded in only 3 of 5 attempts (VI = 2.56), despite all implementations being behaviorally correct at the protocol level. Failures arose from interface incompatibility and temporal instability.
 
 \textbf{Conclusion:} Single-run evaluations can overestimate AI coding agent reliability for concurrent tasks. The three-layer model and VI provide complementary tools for assessing stability beyond pass/fail. All materials are publicly available on GitHub.
 \end{abstract}
@@ -81,7 +81,7 @@ Current evaluations of AI coding agents predominantly rely on single-run pass/fa
 
 However, reliability is not a binary property. An AI coding agent may generate semantically correct code that nevertheless fails due to interface mismatches---struct field names, function signatures, or type definitions that differ from what the test suite expects. Even when code compiles and passes all tests in one run, it may behave inconsistently across repeated executions under identical conditions, particularly for tasks involving concurrency or timing-dependent logic. These dimensions of reliability are invisible to single-run pass/fail metrics.
 
-In this study, we evaluated an AI coding agent (Claude Code with deepseek-v4-flash) on 50 software development tasks (18 core single-run, 32 extended single-run) totaling over 400 test assertions, with 6 representative tasks further repeated 5 times each (30 additional runs). Our central observation is that while most tasks exhibit stable pass/fail outcomes across runs, one of the six repeated tasks---particularly those involving concurrent or distributed systems logic---shows substantial variability. One task (H2, a distributed lock deadlock fix) passed in single-run evaluation but succeeded in only 3 of 5 repeated attempts, despite every implementation being semantically correct. The failures arose from interface incompatibility (struct field naming mismatches) and temporal instability (race conditions).
+In this study, we evaluated an AI coding agent (Claude Code with deepseek-v4-flash) on 50 software development tasks (18 core single-run, 32 extended single-run) totaling over 400 test assertions, with 6 representative tasks further repeated 5 times each (30 additional runs). Our central observation is that while most tasks exhibit stable pass/fail outcomes across runs, one of the six repeated tasks---particularly those involving concurrent or distributed systems logic---shows substantial variability. One task (H2, a distributed lock deadlock fix) passed in single-run evaluation but succeeded in only 3 of 5 repeated attempts, despite all implementations being behaviorally correct at the protocol level. The failures arose from interface incompatibility (struct field naming mismatches) and temporal instability (race conditions).
 
 To account for these observations, we propose a three-layer analysis framework that distinguishes (L1) semantic correctness, (L2) interface compatibility, and (L3) temporal stability. We further introduce a Variance Index (VI) that quantifies run-to-run reliability across repeated executions. These tools provide a more complete picture of agent reliability than single-run pass rates alone.
 
@@ -199,8 +199,8 @@ We argue that AI code reliability is better understood along three complementary
 These three layers are not a strict taxonomy but complementary lenses for analyzing AI code quality beyond single-run pass/fail.
 
 We further introduce a 	extbf{Variance Index (VI)}---the variance of test assertions passed across $n$ repeated runs of the same task---as a simple metric for quantifying run-to-run stability:
-\[VI = rac{1}{n}\sum_{i=1}^{n}(x_i - ar{x})^2\]
-where $x_i$ is the tests passed in the $i$-th run and $ar{x}$ is the mean. A low VI indicates stable performance; a high VI flags tasks where single-run results may be misleading.
+\[VI = \frac{1}{n}\sum_{i=1}^{n}(x_i - \bar{x})^2\]
+where $x_i$ is the tests passed in the $i$-th run and $\bar{x}$ is the mean. A low VI indicates stable performance; a high VI flags tasks where single-run results may be misleading.
 
 \subsection{Experimental Setup}
 
@@ -318,7 +318,7 @@ For test writing tasks, the agent produced test suites covering stated requireme
 
 \subsection{Results by Difficulty Level}
 
-To address RQ2, we examined performance scaling across difficulty levels. Table~\ref{tab:by_difficulty} shows the results broken down by complexity.
+To address RQ2, we applied the three-layer failure model to the H2 case and analyzed performance patterns across difficulty levels. Table~\ref{tab:by_difficulty} shows the results broken down by complexity.
 
 \begin{table}[h]
 \centering
@@ -344,7 +344,7 @@ However, the small sample size per difficulty level (6 simple, 8 medium, 4 hard)
 
 \subsection{Results by Programming Language}
 
-To address RQ3, we analyzed performance across the four programming languages in our benchmark. Table~\ref{tab:by_language} presents the language-specific results.
+To address RQ3, we computed the Variance Index for six repeated tasks and analyzed run-to-run stability. Table~\ref{tab:by_language} presents the language-specific results.
 
 \begin{table}[h]
 \centering
@@ -447,7 +447,7 @@ The complete experimental data, including all 18 core task specifications and 32
 
 \subsection{What the Three-Layer Model Reveals}
 
-The central finding of this study is not that an AI coding agent achieved high pass rates---a result that is increasingly common for established benchmarks---but that single-run pass/fail outcomes can mask substantial reliability differences that the three-layer model reveals.
+The central finding of this study is not that an AI coding agent achieved high pass rates---a result that is partly explained by the well-specified, deterministic nature of our benchmark tasks---a result that is increasingly common for established benchmarks---but that single-run pass/fail outcomes can mask substantial reliability differences that the three-layer model reveals.
 
 At L1 (semantic correctness), the agent performed uniformly across all 50 tasks. Across 414 test assertions and 30 repeated runs, no semantic failures were observed. This suggests that for well-specified programming tasks, current AI coding agents can consistently produce functionally correct code.
 
