@@ -287,7 +287,7 @@ Programming languages & 4 (core); 5 (full benchmark) & --- \\
 
 \subsection{Results by Task Type}
 
-To investigate the relationship between single-run and multi-run evaluation (RQ1), we first present overall single-run results, then report variability analysis from repeated runs. Table~\ref{tab:by_type} presents the results disaggregated by task type. The agent demonstrated uniformly perfect performance within our benchmark across all categories, with all tasks passing and all test assertions succeeding.
+To investigate the relationship between single-run and multi-run evaluation (RQ1), we first present overall single-run results, then report the variability analysis in Section~ef{sec:variability}. Table~\ref{tab:by_type} presents the results disaggregated by task type. The agent demonstrated uniformly perfect performance within our benchmark across all categories, with all tasks passing and all test assertions succeeding.
 
 \begin{table}[h]
 \centering
@@ -316,7 +316,7 @@ The refactoring tasks spanned from simple function decomposition (S5: spaghetti 
 
 For test writing tasks, the agent produced test suites covering stated requirements. Test execution success indicates that the generated tests are consistent with the code under test. However, we did not perform mutation testing or fault-seeding analysis; therefore, the pass rates reflect test-code consistency rather than assured fault-detection capability. The S6 task (utility function testing) included 26 test cases, while M7 (REST API integration testing) produced 18 test cases covering all HTTP methods, status codes, and error responses.
 
-\subsection{Results by Difficulty Level}
+\subsection{Results by Difficulty Level (Auxiliary)}
 
 To address RQ2, we applied the three-layer failure model to the H2 case and analyzed performance patterns across difficulty levels. Table~\ref{tab:by_difficulty} shows the results broken down by complexity.
 
@@ -342,7 +342,7 @@ The uniform 100\% pass rate across all difficulty levels in single-run evaluatio
 
 However, the small sample size per difficulty level (6 simple, 8 medium, 4 hard) limits the statistical power of difficulty-based comparisons. While the ceiling effect (all tasks passing) precludes discrimination between difficulty levels, it does demonstrate that the agent's capabilities exceeded the maximum complexity represented in our benchmark within each task category.
 
-\subsection{Results by Programming Language}
+\subsection{Results by Programming Language (Auxiliary)}
 
 To address RQ3, we computed the Variance Index for six repeated tasks and analyzed run-to-run stability. Table~\ref{tab:by_language} presents the language-specific results.
 
@@ -399,7 +399,7 @@ The generated test suites exhibited comprehensive coverage. For the REST API int
 
 Given the 100\% pass rate across all conditions, traditional frequentist statistical tests (e.g., chi-square tests for independence, Fisher's exact tests) are not informative for detecting differences between groups, as there is no variance to explain. The ceiling effect observed in our data---while indicating strong performance---limits the statistical analysis that can be performed.
 
-\subsection{Variability Analysis}
+\subsection{Variability Analysis}\label{sec:variability}
 \label{sec:variability}
 
 To further assess the reliability and stochasticity of the AI coding agent's performance, we conducted a variability analysis through repeated independent executions on a representative subset of tasks. Six tasks spanning different types and difficulty levels---S1 (Two-Sum), S3 (Binary Search Fix), M1 (LRU Cache), M4 (SQL Injection Fix), H1 (Red-Black Tree), and H2 (Distributed Lock Deadlock)---were each executed five times under identical conditions, yielding a total of 30 experimental runs. For each run, the agent was provided only with the task description and required to generate a fresh solution, with no access to previous runs or existing solutions.
