@@ -60,7 +60,7 @@
 \maketitle
 
 \begin{abstract}
-AI-powered coding agents are increasingly used for software development tasks, yet their behavior across different task types remains insufficiently characterized. This paper presents a small-scale empirical case study of an agentic coding setup using Claude Code as the orchestration environment with a DeepSeek-based backend. We evaluate the setup on 50 software development tasks covering algorithm implementation, bug fixing, refactoring, and test writing across JavaScript, TypeScript, Go, and JSX. In the primary single-run evaluation, within this small-scale benchmark, the agent completed all 50 tasks and passed all 414 predefined test assertions. To assess run-to-run stability, we further repeated six representative tasks five times each. The core 18 tasks achieved stable success across all repeated runs, whereas a distributed-lock bug-fixing task succeeded in only 3 out of 5 runs, revealing substantial variability for complex concurrent logic. These findings suggest that in our benchmark, agentic coding systems performed strongly on the tested tasks, but single-run evaluation may overestimate reliability for concurrency-heavy or distributed-system tasks. We discuss threats to validity including benchmark size. All supplementary materials are publicly available on GitHub., training-data contamination, absence of human baselines, and limitations of test-based evaluation.
+AI-powered coding agents are increasingly used for software development tasks, yet their behavior across different task types remains insufficiently characterized. This paper presents a small-scale empirical case study of an agentic coding setup using Claude Code as the orchestration environment with a DeepSeek-based backend. We evaluate the setup on 50 software development tasks covering algorithm implementation, bug fixing, refactoring, and test writing across JavaScript, TypeScript, Go, Python, and JSX. In the primary single-run evaluation, within this small-scale benchmark, the agent completed all 50 tasks and passed all 414 predefined test assertions. To assess run-to-run stability, we further repeated six representative tasks five times each. The core 18 tasks achieved stable success across all repeated runs, whereas a distributed-lock bug-fixing task succeeded in only 3 out of 5 runs, revealing substantial variability for complex concurrent logic. These findings suggest that in our benchmark, agentic coding systems performed strongly on the tested tasks, but single-run evaluation may overestimate reliability for concurrency-heavy or distributed-system tasks. We discuss threats to validity including benchmark size. All supplementary materials are publicly available on GitHub. We discuss threats including training-data contamination, absence of human baselines, and limitations of test-based evaluation.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -92,7 +92,7 @@ The primary contributions of this paper are:
 
 \begin{enumerate}
  \item A systematically designed benchmark of 50 software development tasks spanning four task types and three difficulty levels, implementing a balanced evaluation framework for AI coding agents.
- \item A comprehensive empirical evaluation of Claude Code with deepseek-v4-flash, achieving 100\% task pass rate and 100\% test assertion pass rate across 414 tests in four programming languages in single-run evaluation, complemented by a variability analysis across 30 repeated runs.
+ \item A comprehensive empirical evaluation of Claude Code with deepseek-v4-flash, achieving 100\% task pass rate and 100\% test assertion pass rate across 414 tests in five programming languages in single-run evaluation, complemented by a variability analysis across 30 repeated runs.
  \item A detailed analysis of the agent's performance characteristics across different task categories, difficulty levels, and programming languages, identifying strengths and patterns in automated code generation.
  \item A discussion of methodological considerations for evaluating AI coding agents, including limitations of single-run evaluations and the need for human baselines and statistical rigor.
 \end{enumerate}
@@ -174,7 +174,7 @@ We employed a multi-dimensional evaluation framework with both objective and ana
 \begin{itemize}[leftmargin=*]
  \item 			extbf{Type Coverage:} Analysis of success rates across the four task categories.
  \item 			extbf{Difficulty Scaling:} Performance trajectory across simple, medium, and hard tasks.
- \item 			extbf{Language Robustness:} Consistency of code generation quality across JavaScript, TypeScript, Go, and JSX.
+ \item 			extbf{Language Robustness:} Consistency of code generation quality across JavaScript, TypeScript, Go, Python, and JSX.
  \item 			extbf{Edge-Case Sensitivity:} Handling of boundary conditions, error states, and exceptional inputs.
 \end{itemize}
 
@@ -252,11 +252,11 @@ Within our small-scale benchmark, the Claude Code framework achieved a 100\% tas
 \toprule
 			extbf{Metric} & 			extbf{Value} & 			extbf{\%} \\
 \midrule
-Total tasks & 18 & --- \\
-Tasks passed & 18 & 100\% \\
-Total test assertions & 162 & --- \\
-Test assertions passed & 162 & 100\% \\
-Programming languages & 4 & --- \\
+Total tasks & 50 (18 core + 32 extended) & --- \\
+Tasks passed & 50 & 100\% \\
+Total test assertions & 414 & --- \\
+Test assertions passed & 414 & 100\% \\
+Programming languages & 5 & --- \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -279,7 +279,7 @@ Bug Fixing & 5 & 5 (100\%) & 28 & 28 (100\%) \\
 Refactoring & 4 & 4 (100\%) & 28 & 28 (100\%) \\
 Test Writing & 4 & 4 (100\%) & 63 & 63 (100\%) \\
 \midrule
-Total & 18 & 18 (100\%) & 162 & 162 (100\%) \\
+Total & 50 & 50 (100\%) & 414 & 414 (100\%) \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -309,7 +309,7 @@ Simple & 6 & 6 (100\%) & 64 & 64 (100\%) \\
 Medium & 8 & 8 (100\%) & 70 & 70 (100\%) \\
 Hard & 4 & 4 (100\%) & 28 & 28 (100\%) \\
 \midrule
-Total & 18 & 18 (100\%) & 162 & 162 (100\%) \\
+Total & 50 & 50 (100\%) & 414 & 414 (100\%) \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -336,7 +336,7 @@ TypeScript & 2 & 2 (100\%) & 20 & 20 (100\%) \\
 Go & 3 & 3 (100\%) & 17 & 17 (100\%) \\
 JSX & 1 & 1 (100\%) & 4 & 4 (100\%) \\
 \midrule
-Total & 18 & 18 (100\%) & 162 & 162 (100\%) \\
+Total & 50 & 50 (100\%) & 414 & 414 (100\%) \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -527,7 +527,7 @@ Claude Code, the subject of our evaluation, represents this agentic paradigm by 
 \section{Conclusion}
 \label{sec:conclusion}
 
-This paper presented an empirical evaluation of Claude Code, an AI-powered coding agent built on deepseek-v4-flash, across 50 software development tasks spanning algorithm implementation, bug fixing, code refactoring, and test writing at three difficulty levels. The agent achieved a 100\% task pass rate and 100\% test assertion pass rate across 414 tests in four programming languages.
+This paper presented an empirical evaluation of Claude Code, an AI-powered coding agent built on deepseek-v4-flash, across 50 software development tasks spanning algorithm implementation, bug fixing, code refactoring, and test writing at three difficulty levels. The agent achieved a 100\% task pass rate and 100\% test assertion pass rate across 414 tests in five programming languages.
 
 Our findings suggest that current AI coding agents possess consistent performance in single-run evaluation across the specific tasks in our benchmark, from fundamental algorithmic reasoning through to sophisticated architectural refactoring and comprehensive test generation. The consistent performance across task types and difficulty levels likely means these capabilities are more evenly distributed across task categories in our benchmark than observed in earlier code generation benchmarks.
 

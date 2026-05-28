@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.5.27)  29 MAY 2026 01:22
+This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.5.27)  29 MAY 2026 01:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -747,6 +747,11 @@ File: figures/fig5_turns_by_tasktype.png Graphic file (type bmp)
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
+Overfull \hbox (15.62704pt too wide) in paragraph at lines 251--262
+ [][] 
+ []
+
+
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [3]
@@ -857,19 +862,16 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package rerunfilecheck Info: File `manuscript.out' has not changed.
 (rerunfilecheck)             Checksum: A58BD5FDF132F6428614C20D487C9EAF;7855.
  ) 
 Here is how much of TeX's memory you used:
  14347 strings out of 402987
  226153 string characters out of 5448524
- 682651 words of memory out of 5000000
+ 683651 words of memory out of 5000000
  42894 multiletter control sequences out of 15000+600000
  632962 words of font info for 71 fonts, out of 8000000 for 9000
  1351 hyphenation exceptions out of 8191
- 72i,10n,79p,1413b,460s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,10n,79p,1449b,460s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 Output written on manuscript.pdf (10 pages).
