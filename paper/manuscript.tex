@@ -477,7 +477,7 @@ We identify several threats to the validity of our findings:
 
 			extbf{Absence of human baseline:} Without a controlled comparison against human performance on identical tasks, we cannot benchmark the agent's performance against human baselines. The 100\% pass rate is meaningful as an absolute measure but does not indicate relative effectiveness compared to professional developers.
 
-			extbf{Task selection bias:} The 50 tasks were designed by the researchers and may not represent the full distribution of challenges in industrial software development. There is a risk that the selected tasks align particularly well with the agent's capabilities, leading to inflated performance estimates.
+			\\textbf{Task selection bias and ceiling effects:} The 50 tasks were designed by the researchers and may not represent the full distribution of challenges in industrial software development. All tasks are well-specified with clear acceptance criteria, which favors agents that perform best on deterministic, testable problems. This ceiling effect means the 100% pass rate reflects an upper bound within this benchmark rather than universally robust capability. Future work should include more open-ended and ambiguous tasks for stronger external validity.
 
 	extbf{Reproducibility:} The experimental setup described in this paper relies on a non-standard API proxy configuration (Claude Code with ANTHROPIC_BASE_URL redirected to a DeepSeek-compatible endpoint). Complete reproducibility requires access to the same API endpoint, model version, and configuration parameters, which may not be publicly available. We have disclosed all configuration details to the best of our knowledge, but independent replication by third parties is encouraged. 
 
