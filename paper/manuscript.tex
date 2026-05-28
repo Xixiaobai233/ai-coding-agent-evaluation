@@ -180,7 +180,7 @@ We employed a multi-dimensional evaluation framework with both objective and ana
 
 \subsection{Experimental Setup}
 
-The experiment was conducted using Claude Code, an AI-powered coding agent developed by Anthropic. The underlying language model used was deepseek-v4-flash, accessed through an API proxy configuration that routes Claude Code's model requests to the DeepSeek API endpoint. This configuration is achieved by setting the \\texttt{ANTHROPIC\_BASE\_URL} environment variable to point to a DeepSeek-compatible API endpoint, effectively substituting the default Claude model with deepseek-v4-flash while preserving Claude Code's agentic framework capabilities---including file system operations, code execution, and multi-turn interaction management. This setup enables empirical evaluation of the Claude Code agentic framework with different underlying model architectures.
+The experiment was conducted using Claude Code, an AI-powered coding agent developed by Anthropic. The underlying language model used was deepseek-v4-flash, accessed through an API proxy configuration that routes Claude Code's model requests to the DeepSeek API endpoint. This configuration is achieved by setting the \texttt{ANTHROPIC\_BASE\_URL} environment variable to point to a DeepSeek-compatible API endpoint, effectively substituting the default Claude model with deepseek-v4-flash while preserving Claude Code's agentic framework capabilities---including file system operations, code execution, and multi-turn interaction management. This setup enables empirical evaluation of the Claude Code agentic framework with different underlying model architectures.
 
 \subsubsection{Model Configuration}
 
