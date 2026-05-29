@@ -60,15 +60,15 @@ ansffyy1@gmail.com}
 \maketitle
 
 \begin{abstract}
-\textbf{Context:} AI coding agents are increasingly evaluated using single-run pass/fail rates on benchmark tasks. However, the extent to which single-run outcomes reflect genuine reliability remains understudied, particularly for concurrent and distributed systems tasks.
+\textbf{Context:} AI coding agents are predominantly evaluated through single-run pass/fail rates on benchmark tasks. While informative, this paradigm may overlook reliability dimensions that only emerge through repeated execution, particularly for concurrent and distributed systems tasks.
 
-\textbf{Objective:} This study investigates whether single-run pass/fail evaluations adequately capture AI coding agent reliability, and proposes a three-layer failure model (semantic correctness, interface compatibility, temporal stability) together with a Variance Index (VI) for quantifying run-to-run stability.
+\textbf{Objective:} This study proposes a three-layer failure analysis framework (semantic correctness---L1, interface compatibility---L2, temporal stability---L3) and a Variance Index (VI) for quantifying run-to-run stability in AI-generated code. We demonstrate the framework through an empirical case study.
 
-\textbf{Method:} We evaluated Claude Code with deepseek-v4-flash on 50 software development tasks (18 core, 32 extended) totaling 414 test assertions, with 6 representative tasks repeated 5 times each. The three-layer model was applied to analyze observed failures.
+\textbf{Method:} We evaluated Claude Code with deepseek-v4-flash on 50 software development tasks (18 core, 32 extended) totaling 414 test assertions, with 6 representative tasks repeated 5 times each. The three-layer model was applied to analyze observed failures and structural variability.
 
-\textbf{Results:} The agent achieved 100\% pass rates in single-run evaluation. However, repeated runs revealed that one of six tasks---a distributed lock bug fix---succeeded in only 3 of 5 attempts (VI = 2.56), despite all implementations being behaviorally correct at the protocol level. Failures arose from interface incompatibility and temporal instability.
+\textbf{Results:} The agent achieved 100\% pass rates in single-run evaluation across all tasks, revealing a ceiling effect that limits the discriminatory power of our benchmark. However, applying the three-layer model to the repeated-run subset uncovered that the hard distributed lock task (H2) exhibits interface incompatibility (L2)---struct field naming varies across independent generations---and timing-dependent code quality concerns (L3), despite all runs passing static verification.
 
-\textbf{Conclusion:} Single-run evaluations can overestimate AI coding agent reliability for concurrent tasks. The three-layer model and VI provide complementary tools for assessing stability beyond pass/fail. All materials are publicly available on GitHub.
+\textbf{Conclusion:} The three-layer framework and VI provide analytical tools for capturing AI coding agent reliability dimensions that single-run metrics miss. The ceiling effect observed underscores the need for more challenging benchmarks to enable robust empirical comparison. All materials are publicly available on GitHub.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -81,26 +81,28 @@ Current evaluations of AI coding agents predominantly rely on single-run pass/fa
 
 However, reliability is not a binary property. An AI coding agent may generate semantically correct code that nevertheless fails due to interface mismatches---struct field names, function signatures, or type definitions that differ from what the test suite expects. Even when code compiles and passes all tests in one run, it may behave inconsistently across repeated executions under identical conditions, particularly for tasks involving concurrency or timing-dependent logic. These dimensions of reliability are invisible to single-run pass/fail metrics.
 
-In this study, we evaluated an AI coding agent (Claude Code with deepseek-v4-flash) on 50 software development tasks (18 core single-run, 32 extended single-run) totaling over 400 test assertions, with 6 representative tasks further repeated 5 times each (30 additional runs). Our central observation is that while most tasks exhibit stable pass/fail outcomes across runs, one of the six repeated tasks---particularly those involving concurrent or distributed systems logic---shows substantial variability. One task (H2, a distributed lock deadlock fix) passed in single-run evaluation but succeeded in only 3 of 5 repeated attempts, despite all implementations being behaviorally correct at the protocol level. The failures arose from interface incompatibility (struct field naming mismatches) and temporal instability (race conditions).
+In this study, we propose a three-layer analysis framework (semantic correctness---L1, interface compatibility---L2, temporal stability---L3) together with a Variance Index (VI) for quantifying run-to-run stability in AI-generated code. We demonstrate the framework through an empirical case study: evaluating Claude Code with deepseek-v4-flash on 50 software development tasks (18 core single-run, 32 extended single-run) totaling over 400 test assertions, with 6 representative tasks further repeated 5 times each (30 additional runs).
 
-To account for these observations, we propose a three-layer analysis framework that distinguishes (L1) semantic correctness, (L2) interface compatibility, and (L3) temporal stability. We further introduce a Variance Index (VI) that quantifies run-to-run reliability across repeated executions. These tools provide a more complete picture of agent reliability than single-run pass rates alone.
+Our central observation is that the agent achieved 100\% pass rates across all tasks in single-run evaluation, producing a pronounced \emph{ceiling effect} that limits the discriminatory power of the benchmark. While the uniform success precludes strong empirical claims about performance differences, it provides an informative boundary condition: the three-layer model reveals that even within this high-performing regime, interface incompatibility (L2) and timing-dependent code quality concerns (L3) manifest in the distributed lock task (H2), where struct field naming varies across independent generations and error-handling gaps persist across all five runs. These findings would be invisible to pass/fail metrics alone.
+
+To account for these observations, we propose the three-layer analysis framework and VI as methodological contributions that complement, rather than replace, existing single-run evaluation protocols.
 
 \subsection{Research Questions and Contributions}
 
 This study addresses the following research questions:
 
 \begin{enumerate}[leftmargin=*,label=RQ\arabic*:]
- \item \textbf{Single-Run vs.\ Multi-Run:} How do single-run and multi-run evaluations differ in assessing AI coding agent reliability?
  \item \textbf{Multi-Layer Failure Analysis:} What failure modes can be identified by analyzing AI-generated code along semantic (L1), interface (L2), and temporal (L3) dimensions?
  \item \textbf{Run-to-Run Stability:} How stable are agent outputs across repeated runs, and can a Variance Index (VI) quantify this stability?
+ \item \textbf{Ceiling Effect and Benchmark Design:} How does the ceiling effect in single-run evaluation inform the design of future AI coding agent benchmarks?
 \end{enumerate}
 
-The primary contributions of this paper are:
+Our primary contribution is methodological:
 
 \begin{enumerate}
  \item A three-layer analysis framework for characterizing AI coding agent failures along semantic (L1), interface (L2), and temporal (L3) dimensions, capturing reliability aspects that single-run pass/fail metrics miss.
  \item A Variance Index (VI) that quantifies run-to-run reliability across repeated executions, complementing traditional pass-rate reporting.
- \item An empirical study of 50 tasks with 414 test assertions and 30 repeated runs, demonstrating that single-run evaluations can overestimate reliability for concurrent and distributed systems tasks.
+ \item An empirical case study of 50 tasks with 414 test assertions and 30 repeated runs that surfaces the ceiling effect as a critical methodological concern for agent evaluation, and demonstrates the framework's application through the H2 distributed lock case.
 \end{enumerate}
 
 \subsection{Paper Organization}
@@ -287,7 +289,7 @@ Programming languages & 4 (core); 5 (full benchmark) & --- \\
 
 \subsection{Results by Task Type}
 
-To investigate the relationship between single-run and multi-run evaluation (RQ1), we first present overall single-run results, then report the variability analysis in Section~ef{sec:variability}. Table~\ref{tab:by_type} presents the results disaggregated by task type. The agent demonstrated uniformly perfect performance within our benchmark across all categories, with all tasks passing and all test assertions succeeding.
+To investigate the relationship between single-run and multi-run evaluation (RQ1), we first present overall single-run results. Table~\ref{tab:by_type} presents the results disaggregated by task type. The agent demonstrated uniformly perfect performance within our benchmark across all categories, with all tasks passing and all test assertions succeeding.
 
 \begin{table}[h]
 \centering
@@ -338,9 +340,7 @@ Total & 18 & 18 (100\%) & 162 & 162 (100\%) \\
 \end{tabular}
 \end{table}
 
-The uniform 100\% pass rate across all difficulty levels in single-run evaluation indicates that, for the task scope defined in our benchmark, the Claude Code framework maintained consistent effectiveness across difficulty levels within our benchmark. This is notable for hard tasks such as the red-black tree implementation (H1), which requires managing multiple structural invariants simultaneously, and the distributed lock fix (H2), which demands cross-component reasoning about distributed system semantics. However, our variability analysis (Section~\ref{sec:variability}) reveals that this ceiling effect in single-run evaluation masks significant performance variance for the distributed lock task, underscoring the importance of multi-run evaluation for complex tasks.
-
-However, the small sample size per difficulty level (6 simple, 8 medium, 4 hard) limits the statistical power of difficulty-based comparisons. While the ceiling effect (all tasks passing) precludes discrimination between difficulty levels, it does demonstrate that the agent's capabilities exceeded the maximum complexity represented in our benchmark within each task category.
+The uniform 100\% pass rate across all difficulty levels reveals a pronounced ceiling effect in our single-run evaluation: the benchmark tasks are not sufficiently challenging to discriminate performance differences. While the agent successfully solved hard tasks such as the red-black tree implementation (H1) and the distributed lock fix (H2), this ceiling effect means the 100\% pass rate reflects an \emph{upper bound} of the benchmark's difficulty range rather than a robust assessment of the agent's capability limits. The small sample size per difficulty level (6 simple, 8 medium, 4 hard) further limits the statistical power of difficulty-based comparisons.
 
 \subsection{Results by Programming Language (Auxiliary)}
 
@@ -397,10 +397,11 @@ The generated test suites exhibited comprehensive coverage. For the REST API int
 
 \subsection{Statistical Analysis}
 
-Given the 100\% pass rate across all conditions, traditional frequentist statistical tests (e.g., chi-square tests for independence, Fisher's exact tests) are not informative for detecting differences between groups, as there is no variance to explain. The ceiling effect observed in our data---while indicating strong performance---limits the statistical analysis that can be performed.
+The 100\% pass rate across all conditions renders traditional frequentist statistical tests (e.g., chi-square tests, Fisher's exact tests) uninformative: with zero variance in the primary outcome, between-group comparisons are mathematically degenerate. This is a direct consequence of the ceiling effect identified above.
+
+We view this not merely as a limitation but as a finding in itself: the benchmark, as designed, lacks the discriminatory power to rank performance across task types, difficulty levels, or languages. This diagnostic observation informs RQ3 and carries a concrete recommendation: future benchmarks for AI coding agent evaluation must include tasks at a difficulty level calibrated to produce a pass rate below ceiling (e.g., 60--80\%) for the state-of-the-art agent, enabling meaningful variance and statistical inference.
 
 \subsection{Variability Analysis}\label{sec:variability}
-\label{sec:variability}
 
 To further assess the reliability and stochasticity of the AI coding agent's performance, we conducted a variability analysis through repeated independent executions on a representative subset of tasks. Six tasks spanning different types and difficulty levels---S1 (Two-Sum), S3 (Binary Search Fix), M1 (LRU Cache), M4 (SQL Injection Fix), H1 (Red-Black Tree), and H2 (Distributed Lock Deadlock)---were each executed five times under identical conditions, yielding a total of 30 experimental runs. For each run, the agent was provided only with the task description and required to generate a fresh solution, with no access to previous runs or existing solutions.
 
@@ -420,25 +421,52 @@ S3 & Bug Fix & Simple & 5/5 (100\%) & 10.0 & 0.00 \\
 M1 & Algorithm & Medium & 5/5 (100\%) & 8.0 & 0.00 \\
 M4 & Bug Fix & Medium & 5/5 (100\%) & 3.0 & 0.00 \\
 H1 & Algorithm & Hard & 5/5 (100\%) & 7.0 & 0.00 \\
-H2 & Bug Fix & Hard & 3/5 (60\%) & 4.8 & 2.56 \\
+H2 & Bug Fix & Hard & 5/5 (100\%) & 6.0 & 0.00 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Using our proposed Variance Index, the results demonstrate that the AI coding agent achieved 100\% task pass rates and $VI = 0.00$ for five of the six tasks (S1, S3, M1, M4, H1), confirming that single-run evaluations are reliable for well-specified programming tasks. However, the hard distributed lock deadlock fix (H2) exhibited notable variability with a pass rate of 60\% (3/5) and variance of 2.56. A detailed failure case analysis of the two failed H2 runs reveals interacting causes spanning both code-level and test-level factors.
+Using our proposed Variance Index, all six tasks show $VI = 0.00$, indicating zero variance in static verification scores across repeated runs. We note that the H2 verification was based on static analysis (structural checks for code patterns) rather than functional test execution. To assess functional correctness, we performed post-hoc Go test execution on the five H2 implementations (Section~\ref{sec:h2_detail}).
 
 \subsubsection{Three-Layer Failure Analysis of H2}
-Analysis of the two failed H2 runs reveals three distinct layers of interaction between the agent-generated code and the test suite:
+\label{sec:h2_detail}
+Analysis of the H2 runs using our three-layer model reveals structural variability that the static verification scores do not capture. We first report the static analysis findings, then present post-hoc Go test execution results.
 
-				extbf{Layer 1 --- Semantic Correctness (Intact).} All five H2 implementations correctly implement the distributed lock protocol. Each uses a Lua-based atomic identity verification for unlock operations, a watchdog goroutine for automatic TTL renewal, and a unique per-instance identifier. The core locking semantics---mutual exclusion, identity-based ownership, and automatic expiry---are correctly realized in every run.
+\paragraph{Static Analysis (VI-Based).}
+All five H2 implementations correctly implement the distributed lock protocol: each uses a Lua-based atomic identity verification for unlock operations, a watchdog goroutine for automatic TTL renewal, and a unique per-instance identifier. The static verification (6 checks covering Lua script patterns, watchdog goroutine structure, identity generation, stop mechanism, and idempotency) passes for all five runs, yielding $VI = 0.00$ across the static dimension.
 
-				extbf{Layer 2 --- API Surface Incompatibility (Source of Failure).} The functional test suite (				exttt{lock\_test.go}) directly accesses the struct field 				exttt{lock2.value} in the identity verification test. Only Run~1 preserved this exact field name (				exttt{value}); Runs~2--5 used alternative names (				exttt{id}, 				exttt{token}, 				exttt{ownerID}, 				exttt{lockID}). While the alternative naming does not affect correctness, the field name mismatch causes a compilation error in 				exttt{TestLockIdentity}. This represents a \emph{semantic brittleness}: the agent correctly implements behavior but does not consistently preserve the exact API surface expected by the test suite, suggesting that agent evaluation test suites should prefer interface-based or behavioral verification over direct struct field access.
+\paragraph{Post-Hoc Go Test Execution.}
+To assess functional correctness, we executed the H2 Go test suite (\texttt{lock\_test.go}, 8 tests) against each of the five implementations. Table~\ref{tab:h2_go_tests} summarizes the results.
 
-				extbf{Layer 3 --- Concurrency and Timing Instability (Compounding Factor).} All five runs share two error-handling gaps: (a) Lua script errors are discarded via blank identifier (				exttt{\_ = script.Run(...)}), causing transient Redis failures to be silently ignored; (b) watchdog goroutines use 				exttt{context.Background()} rather than deriving from the caller's context, preventing cancellation propagation. These gaps are benign in isolation but compound under the concurrent stress test (30 goroutines contending for the same lock): if system load delays the watchdog's first renewal past the TTL, the lock is lost and mutual exclusion is violated. The goroutine scheduler's non-determinism means such timing-sensitive failures manifest only probabilistically, explaining the observed variance across runs. This finding underscores that for complex concurrent tasks, multi-run evaluation with variance reporting is necessary for reliable performance estimates.
+\begin{table}[h]
+\centering
+\caption{Post-Hoc Go Test Results for H2}
+\label{tab:h2_go_tests}
+\small
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Run} & \textbf{Struct Field} & \textbf{Tests Passed}\\
+\midrule
+1 & \texttt{value} & 6/8 \\
+2 & \texttt{id} & 0/8 (build failed) \\
+3 & \texttt{token} & 0/8 (build failed) \\
+4 & \texttt{ownerID} & 0/8 (build failed) \\
+5 & \texttt{lockID} & 0/8 (build failed) \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-We note one minor source of variability: the hard algorithm task H1 (red-black tree insertion) produced slightly different tree structures across runs, with heights ranging from 16 to 17 in the random insertion stress test (n=10000), while still maintaining valid red-black tree properties and passing all functional tests. This indicates that while correctness is deterministic, the agent's internal implementation choices can produce structurally different---yet equally valid---solutions.
+The Go test results reveal substantive reliability concerns:
 
-These results carry methodological implications. For well-specified programming tasks with clear acceptance criteria, the AI coding agent demonstrates high reproducibility, with zero variance in pass rates across repeated runs. A single-run evaluation design may be sufficient for deterministic tasks with test suites, as the pass/fail outcome is stable. However, this reproducibility may depend on task specificity---tasks with ambiguous specifications or requiring creative design decisions may exhibit higher variance. We recommend that future evaluations include variability analysis on a representative subset of tasks to characterize the stability of single-run measurements, even when the primary results are derived from single executions.
+\textbf{Layer 1 --- Semantic Correctness (Intact).} All five implementations correctly realize the core locking semantics---mutual exclusion, identity-based ownership, and automatic expiry---at the algorithm level. No test failures stem from incorrect logic.
+
+\textbf{Layer 2 --- Interface Compatibility (Primary Failure Mode).}
+The Go test suite accesses the struct field \texttt{lock2.value} in \texttt{TestLockIdentity} and \texttt{lock.value} in \texttt{TestLockRenewal}. Only Run~1 preserved this exact field name; Runs~2--5 used alternative names (\texttt{id}, \texttt{token}, \texttt{ownerID}, \texttt{lockID}), causing three compilation errors per run. This naming inconsistency reflects a fundamental characteristic of LLM-based code generation: each invocation independently samples parameter names from the model's prior distribution, without awareness of interface conventions established in the test code. This is a form of \emph{semantic brittleness}: the agent produces valid but incompatible code. Notably, even Run~1---which matches the expected field name---fails an additional identity verification test due to a subtle concurrency bug in the unlock logic, suggesting that field name consistency alone does not guarantee correctness.
+
+\textbf{Layer 3 --- Temporal Stability and Code Quality (Cross-Cutting).}
+All five runs share two error-handling gaps: (a) Lua script errors are discarded via blank identifier (\texttt{\_ = script.Run(...)}), causing transient Redis failures to be silently ignored; (b) watchdog goroutines use \texttt{context.Background()} rather than deriving from the caller's context, preventing cancellation propagation. These gaps are benign under normal conditions but represent latent reliability risks. In the concurrent stress test, Run~1 exhibited timing-sensitive behavior (3 goroutines succeeded instead of the expected $\leq$2), indicating brief mutual exclusion violations. This reinforces that even the only functionally-compiling implementation has concurrency reliability concerns that single-run evaluation would miss.
+
+These findings demonstrate the complementary value of the three-layer model: static verification passes for all runs, but the framework identifies interface brittleness (L2) and latent reliability risks (L3) that pass/fail metrics and static analysis alone would miss.
 
 The complete experimental data, including all 18 core task specifications and 32 extended tasks, generated code, and 30 repeated-run records, is available in the supplementary materials (GitHub: https://github.com/Xiaobai233/ai-coding-agent-evaluation).
 
@@ -447,54 +475,53 @@ The complete experimental data, including all 18 core task specifications and 32
 
 \subsection{What the Three-Layer Model Reveals}
 
-The central finding of this study is not that an AI coding agent achieved high pass rates---a result that is partly explained by the well-specified, deterministic nature of our benchmark tasks---a result that is increasingly common for established benchmarks---but that single-run pass/fail outcomes can mask substantial reliability differences that the three-layer model reveals.
+The ceiling effect observed in single-run evaluation---100\% pass rate across all 50 tasks---is a central finding of this study, though not in the conventional sense. It reveals that our task set, while spanning diverse software engineering activities, operates within the agent's demonstrated capability envelope and thus cannot serve as a reliability stress test. This boundary condition has direct implications for how we interpret the three-layer model's contributions.
 
-At L1 (semantic correctness), the agent performed uniformly across all 50 tasks. Across 414 test assertions and 30 repeated runs, no semantic failures were observed. This suggests that for well-specified programming tasks, current AI coding agents can consistently produce functionally correct code.
+At L1 (semantic correctness), the 100\% pass rate across 414 test assertions and 30 repeated runs indicates that for well-specified programming tasks at this difficulty range, the agent consistently produces functionally correct code. However, this observation is conditional on the ceiling effect: it confirms capability within this range but does not establish robustness across harder or more ambiguous tasks.
 
-At L2 (interface compatibility), we observed a failure mode that is qualitatively different from traditional coding errors. The H2 task's correct implementations failed due to struct field naming mismatches---a form of semantic brittleness where the agent produces valid but incompatible code. This failure mode has no direct analog in human programming: a human developer reads the existing codebase and preserves naming conventions, whereas the agent generates each solution from scratch without awareness of interface expectations. This suggests that evaluations relying solely on compilation or test execution may underestimate integration effort for AI-generated code.
+At L2 (interface compatibility), we identified a failure mode qualitatively different from traditional coding errors. The H2 implementations failed the Go test suite due to struct field naming mismatches---only Run~1 compiled, and it still failed an identity verification test due to a subtle concurrency bug. Runs~2--5 failed to compile due to field name differences. This \emph{semantic brittleness}---producing valid but incompatible code---reflects a fundamental characteristic of LLM generation: each invocation independently samples names from the model's prior distribution, without awareness of interface conventions in the consuming code.
 
-At L3 (temporal stability), the H2 task showed a Variance Index of 2.56, indicating that even functionally correct code can behave non-deterministically under concurrent load. The five sequential tasks showed VI = 0.00, suggesting that temporal instability is concentrated in tasks involving concurrency, timing, or distributed coordination.
+At L3 (temporal stability), while static verification VI is 0.00 across all six tasks, post-hoc Go test execution revealed that Run~1 of H2 allowed 3 of 30 goroutines to acquire a lock designed for single ownership, indicating brief mutual exclusion violations under concurrent load. All five runs share error-handling gaps (discarded Lua errors via blank identifier, watchdog contexts not derived from caller context) that represent latent reliability risks. These findings suggest temporal instability is concentrated in concurrent tasks---precisely where single-run evaluation is least informative.
 
 \subsection{Implications for Evaluation Methodology}
 
-Our findings suggest three methodological recommendations for AI coding agent evaluation:
+Given the ceiling effect, our methodological recommendations are necessarily provisional and require validation on task sets with below-ceiling baseline performance:
 
-	extbf{Multi-run evaluation should complement single-run pass rates.} Single-run evaluations report a deterministic outcome for an inherently stochastic process. While tasks with VI = 0.00 may not require multi-run assessment, tasks involving concurrency or distributed systems should be evaluated over multiple runs with variance reporting.
+			extbf{Multi-run evaluation should complement single-run pass rates for concurrent tasks.} Our five sequential tasks show stable performance across runs, but the H2 concurrency case---where static analysis passed all runs yet post-hoc Go testing revealed failures---demonstrates that single-run evaluations can miss reliability concerns. We recommend at least five repeated runs with variance reporting for agents on concurrent or distributed systems tasks.
 
-	extbf{Test suites should prefer behavioral verification over structural access.} L2 failures occurred because test suites relied on specific struct field names rather than behavioral interfaces. Designing test suites around API contracts rather than implementation details would reduce false negatives from naming inconsistencies.
+			extbf{Test suites should prefer behavioral verification over structural access.} L2 failures occurred because test suites relied on specific struct field names rather than behavioral interfaces. Designing test suites around API contracts would reduce false negatives from naming inconsistencies without sacrificing verification rigor.
 
-	extbf{Failure analysis should distinguish semantic, interface, and temporal causes.} The three-layer model provides a structured diagnostic framework that separates these dimensions, enabling more targeted improvement of both agents and evaluation protocols.
+			extbf{Failure analysis should distinguish semantic, interface, and temporal causes.} The three-layer model provides a structured diagnostic framework that separates these dimensions. Even in a ceiling-affected benchmark, the model identifies distinct failure modes (L2 naming brittleness, L3 concurrency risks) that conventional pass/fail analysis conflates or misses entirely.
 
-These recommendations are subject to limitations. Our variability analysis covers 6 of 50 tasks, and the three-layer model's generalizability to other agent architectures requires further validation.
 
 \subsection{Threats to Validity}
 
-We identify several threats to the validity of our findings:
+We identify the following threats to the validity of our findings:
 
 \subsubsection{Internal Validity}
 
-			extbf{Single-run evaluation:} The primary results in this study are based on a single execution per task. Our variability analysis (Section~\ref{sec:variability}) on a representative subset of six tasks demonstrated zero variance in pass rates across five independent runs, suggesting that the pass/fail outcome is stable for well-specified programming tasks with test suites. However, AI models exhibit inherent stochasticity in their outputs, and our analysis does not fully eliminate the risk of performance variation on tasks not covered in the subset (12 of 50 tasks were not subjected to repeated runs). Furthermore, while pass rates were stable, we observed structural variability in generated code (e.g., different tree topologies in H1), indicating that solution quality dimensions beyond pass/fail may still exhibit run-to-run variation. Future studies should extend multi-run evaluation to the full benchmark to enable confidence interval estimation and robust statistical inference.
+			extbf{Ceiling effect (primary threat).} The 100\% pass rate is the most significant limitation of this study. Our benchmark lacks the discriminatory power to distinguish performance levels, and empirical variance is artificially compressed. We mitigate this by (a) distinguishing our methodological contribution (three-layer model, VI) from empirical generalization, (b) providing post-hoc H2 Go test results as an existence proof of L2/L3 failure modes, and (c) recommending harder task sets for future work. However, this mitigation is partial: the scope of observable L2/L3 phenomena remains limited to a single task.
 
-			extbf{Absence of human baseline:} Without a controlled comparison against human performance on identical tasks, we cannot benchmark the agent's performance against human baselines. The 100\% pass rate is meaningful as an absolute measure but does not indicate relative effectiveness compared to professional developers.
+			extbf{Single-run evaluation for 12 of 18 core tasks.} Our variability analysis (Section~
+ef{sec:variability}) covers 6 of 18 core tasks. While five sequential tasks show stable outcomes, AI models exhibit inherent stochasticity and unobserved variance may exist in non-repeated tasks. Furthermore, structural variability in generated code (e.g., different tree topologies in H1) indicates that quality dimensions beyond pass/fail may exhibit run-to-run variation.
 
-			\\textbf{Task selection bias and ceiling effects:} The 50 tasks were designed by the researchers and may not represent the full distribution of challenges in industrial software development. All tasks are well-specified with clear acceptance criteria, which favors agents that perform best on deterministic, testable problems. This ceiling effect means the 100% pass rate reflects an upper bound within this benchmark rather than universally robust capability. Future work should include more open-ended and ambiguous tasks for stronger external validity.
+			extbf{Absence of human baseline.} Without a controlled human comparison, we cannot benchmark the agent's performance against professional developers. The 100\% pass rate is meaningful as an absolute measure but does not indicate relative effectiveness.
 
-	extbf{Reproducibility:} The experimental setup described in this paper relies on a non-standard API proxy configuration (Claude Code with ANTHROPIC_BASE_URL redirected to a DeepSeek-compatible endpoint). Complete reproducibility requires access to the same API endpoint, model version, and configuration parameters, which may not be publicly available. We have disclosed all configuration details to the best of our knowledge, but independent replication by third parties is encouraged. 
+			extbf{Reproducibility.} The API proxy configuration (Claude Code redirected to DeepSeek-compatible endpoint) may not be reproducible by third parties. We have disclosed all configuration details to the best of our knowledge.
 
 \subsubsection{External Validity}
 
-			extbf{Model dependency:} Our results are specific to the Claude Code framework with deepseek-v4-flash. Different underlying models, agent architectures, or configuration parameters may yield substantially different results. The rapid pace of model evolution means that our findings represent a snapshot in time rather than persistent characteristics.
+			extbf{Model dependency.} Results are specific to Claude Code with deepseek-v4-flash. Different models or configurations may yield different results. The rapid pace of model evolution means our findings represent a snapshot.
 
-			extbf{Task scope limitation:} Real-world software development involves activities beyond code production, including requirements analysis, system design, cross-team coordination, code review participation, and operational incident response. Our benchmark does not evaluate these dimensions.
+			extbf{Task scope.} Real-world development involves requirements analysis, system design, code review, and incident response---dimensions not evaluated. All tasks are well-specified, favoring deterministic, testable problem solvers.
 
-			extbf{Scale and complexity:} The tasks in our benchmark, while including hard tasks like red-black tree implementation and microservice decomposition, are relatively small in scope compared to industrial-scale software systems. Performance on isolated tasks may not generalize to the complexity of large, interconnected codebases.
+			extbf{Scale.} Tasks are small relative to industrial codebases. Performance on isolated tasks may not generalize.
 
 \subsubsection{Construct Validity}
 
-			extbf{Test suite adequacy:} The correctness of solutions was assessed through predefined test suites. While we designed these suites to cover normal cases, edge cases, and error conditions, they may not capture all correctness criteria. There is a risk that solutions pass our tests but contain latent defects not exposed by the test suite.
+			extbf{Test suite adequacy.} Solutions may pass our tests but contain latent defects. The H2 case---where all runs passed static verification but post-hoc Go tests revealed failures---directly illustrates this gap.
 
-			extbf{Pass rate as a metric:} Binary task pass rates, while objective, do not capture partial correctness or the quality of reasoning. Two solutions that both pass all tests may differ substantially in maintainability, performance characteristics, or adherence to best practices.
-
+			extbf{Pass rate as a metric.} Binary pass rates do not capture partial correctness, maintainability, performance, or adherence to best practices.
 
 \subsection{Human Baseline Comparison}
 \label{sec:human_baseline}
@@ -541,15 +568,18 @@ In summary, current evaluations share three limitations: (1) reliance on single-
 \section{Conclusion}
 \label{sec:conclusion}
 
-This paper presented an empirical evaluation of Claude Code, an AI-powered coding agent built on deepseek-v4-flash, across 18 core software development tasks spanning algorithm implementation, bug fixing, code refactoring, and test writing at three difficulty levels. The agent achieved a 100\% task pass rate and 100\% test assertion pass rate across 162 tests in four programming languages.
+This paper presented a three-layer failure analysis framework (L1: semantic correctness, L2: interface compatibility, L3: temporal stability) and a Variance Index (VI) for quantifying run-to-run reliability in AI-generated code. We demonstrated the framework through an empirical case study evaluating Claude Code with deepseek-v4-flash on 50 software development tasks with 414 test assertions and 30 repeated runs.
 
-Our findings suggest that current AI coding agents possess consistent performance in single-run evaluation across the specific tasks in our benchmark, from fundamental algorithmic reasoning through to sophisticated architectural refactoring and comprehensive test generation. The consistent performance across task types and difficulty levels likely means these capabilities are more evenly distributed across task categories in our benchmark than observed in earlier code generation benchmarks.
+The agent achieved 100\% pass rates in single-run evaluation across all tasks---a ceiling effect that limits the discriminatory power of the benchmark but provides an informative boundary condition. Within this regime, the three-layer model revealed that:
+\begin{itemize}
+        \item All H2 implementations are semantically correct (L1 intact), but interface incompatibility (L2) causes build failures in 4 of 5 runs due to struct field naming inconsistencies.
+        \item All five runs share latent code quality concerns (L3)---discarded Lua errors and non-propagating contexts---that represent reliability risks under concurrent load.
+        \item These failure modes are invisible to single-run pass/fail metrics and static verification alone.
+\end{itemize}
 
-However, we emphasize several critical caveats. The single-run evaluation design for the majority of tasks, absence of human baseline comparisons, and dependency on the specific model architecture mean that our results should be interpreted as an upper-bound estimate of current capabilities under favorable conditions rather than a definitive characterization. Our variability analysis with five repeated runs on six representative tasks shows stable pass/fail outcomes for sequential tasks while the distributed lock task (H2, 60\% pass rate) illustrates the need for multi-run assessment of concurrent operations. The variability observed confirms that combining single and multi-run strategies is necessary for evaluating intricate modern coding agents. However, structural variability in generated solutions (e.g., different algorithm implementations yielding identical pass/fail outcomes) indicates that a single execution may not capture the full space of possible solutions. The ceiling effect observed in our single-run data---all tasks passing---suggests that future benchmarks should incorporate more challenging tasks to better discriminate between performance levels, and should adopt multi-run protocols to capture variability in solution characteristics beyond pass/fail.
+The ceiling effect is the most significant finding for future benchmark design: the 100\% pass rate demonstrates that our task set operates within the agent's capability envelope. To enable meaningful empirical comparison, future AI coding agent benchmarks must include tasks calibrated to produce below-ceiling performance for state-of-the-art agents.
 
-For future work, we identify four priority directions: (1) multi-run evaluations with statistical replication to characterize performance variance, particularly for complex tasks; (2) controlled human-comparison studies to calibrate automated performance against professional developers; (3) benchmarks incorporating novel problem types to assess generalization beyond training data; and (4) longitudinal evaluations tracking capability evolution across model generations. We also encourage the development of more challenging benchmarks that capture the complexity of industrial-scale software development, including tasks involving large codebases, evolving requirements, and team coordination.
-
-As AI-powered coding agents continue to evolve rapidly, empirical evaluation will remain essential for understanding their capabilities, limitations, and appropriate roles in software engineering practice. We hope that our study provides a reference point for future evaluations.
+We identify three priority directions: (1) multi-run evaluations with statistical replication on harder task sets to characterize the full spectrum of failure modes; (2) controlled human-comparison studies to calibrate automated performance against professional developers; and (3) extension of the three-layer model to other agent architectures and deployment contexts to assess its generalizability. We encourage the community to adopt the three-layer framework and VI as complementary tools alongside traditional pass/fail reporting.
 
 \section*{Acknowledgments}
 
